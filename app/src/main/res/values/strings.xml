@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">Dairys</string>
+    <string name="app_name" translatable="false">Dairys</string>
+    <string name="home">Home</string>
+    <string name="statistics">Statistics</string>
+    <string name="dream_diary">Dream Diary</string>
+    <string name="settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_open">Navigation open</string>
+    <string name="navigation_closed">Navigation closed</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="your_email">Your email</string>
+    <string name="your_password">Your password</string>
 </resources>

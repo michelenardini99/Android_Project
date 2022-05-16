@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Home</string>
+    <string name="statistics">Statistiche</string>
+    <string name="dream_diary">Diario dei sogni</string>
+    <string name="settings">Impostazioni</string>
+</resources>

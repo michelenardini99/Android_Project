@@ -4,4 +4,7 @@
     <string name="statistics">Statistiche</string>
     <string name="dream_diary">Diario dei sogni</string>
     <string name="settings">Impostazioni</string>
+    <string name="register">Registrati</string>
+    <string name="your_password">La tua password</string>
+    <string name="your_email">La tua email</string>
 </resources>

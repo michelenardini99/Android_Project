@@ -7,4 +7,6 @@
     <string name="register">Registrati</string>
     <string name="your_password">La tua password</string>
     <string name="your_email">La tua email</string>
+    <string name="your_username">Il tuo username</string>
+    <string name="sign_in">Registrati</string>
 </resources>

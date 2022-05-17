@@ -21,4 +21,10 @@
     <string name="your_password">Your password</string>
     <string name="login" translatable="false">Login</string>
     <string name="register">Register</string>
+    <string name="your_username">Your username</string>
+    <string name="sign_in">Sign In</string>
+    <string name="title_activity_main" translatable="false">Main activity</string>
+    <string name="suffixEmail" translatable="false">\@gmail.com</string>
+    <string name="add">Add</string>
+    <string name="view_pager">View Pager</string>
 </resources>

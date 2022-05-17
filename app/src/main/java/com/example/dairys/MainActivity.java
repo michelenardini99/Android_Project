@@ -6,68 +6,51 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dairys.Fragment.DreamDiaryFragment;
 import com.example.dairys.Fragment.HomeFragment;
 import com.example.dairys.Fragment.SettingsFragment;
 import com.example.dairys.Fragment.StatisticsFragment;
-import com.example.dairys.databinding.ActivityMainBinding;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Timer;
-import java.util.TimerTask;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity  {
-
-    ActivityMainBinding binding;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private MaterialToolbar toolbar;
     private ActionBarDrawerToggle toggle;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        /*binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.navigation_drawer);
 
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation_drawer);
+        navigationView = (NavigationView)findViewById(R.id.navigation_drawer);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(navListener);
 
-        binding.bottomNavigation.setOnItemSelectedListener( item -> {
-            switch (item.getItemId()){
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.statistics:
-                    replaceFragment(new StatisticsFragment());
-                    break;
-                case R.id.dream_diary:
-                    replaceFragment(new DreamDiaryFragment());
-                    break;
-                case R.id.settings:
-                    replaceFragment(new SettingsFragment());
-                    break;
-            }
-            return true;
-        });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.username);
+            String value = extras.getString("username");
+            navUsername.setText(value);
+        }
+
 
         setSupportActionBar(toolbar);
 
@@ -75,17 +58,35 @@ public class MainActivity extends AppCompatActivity  {
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_open, R.string.navigation_closed);
 
-        drawerLayout.setDrawerListener(toggle);*/
+        drawerLayout.setDrawerListener(toggle);
     }
 
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                Fragment fragment = null;
+                switch(item.getItemId()){
+                    case R.id.home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.statistics:
+                        fragment = new StatisticsFragment();
+                        break;
+                    case R.id.dream_diary:
+                        fragment = new DreamDiaryFragment();
+                        break;
+                    case R.id.settings:
+                        fragment = new SettingsFragment();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                return true;
+            }
+        };
 
-    /*@Override
+
+    @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         toggle.syncState();
@@ -111,5 +112,6 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         return true;
-    }*/
+    }
+
 }

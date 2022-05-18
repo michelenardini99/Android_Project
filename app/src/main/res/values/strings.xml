@@ -27,4 +27,22 @@
     <string name="suffixEmail" translatable="false">\@gmail.com</string>
     <string name="add">Add</string>
     <string name="view_pager">View Pager</string>
+    <string name="really_happy">Really happy</string>
+    <string name="happy">Happy</string>
+    <string name="so_so">So so</string>
+    <string name="bad">Bad</string>
+    <string name="terrible">Terrible</string>
+    <string name="feel">"How do you feel? "</string>
+    <string name="select_date">Select date</string>
+    <string name="activity">Activities done?</string>
+    <string name="sport">Sport</string>
+    <string name="walk">Walk</string>
+    <string name="excursion">Excursion</string>
+    <string name="immersion">Immersion</string>
+    <string name="cycling">Cycling</string>
+    <string name="eat">What did you eat ?</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="snack">Snack</string>
 </resources>

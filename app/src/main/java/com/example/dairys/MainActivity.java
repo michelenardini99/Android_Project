@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navUsername.setText(value);
         }
 
+        goToHomeFragment();
+
 
         setSupportActionBar(toolbar);
 
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_open, R.string.navigation_closed);
 
         drawerLayout.setDrawerListener(toggle);
+    }
+
+    private void goToHomeFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -112,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         return true;
+    }
+
+    public void goToCreatePageDiary(){
+        Intent intent = new Intent(this, NewPageDiaryActivity.class);
+        startActivity(intent);
     }
 
 }

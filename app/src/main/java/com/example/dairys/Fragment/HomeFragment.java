@@ -1,5 +1,6 @@
 package com.example.dairys.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dairys.MainActivity;
+import com.example.dairys.NewPageDiaryActivity;
 import com.example.dairys.R;
 import com.example.dairys.databinding.ActivityMainBinding;
 import com.google.android.material.textview.MaterialTextView;
@@ -46,6 +49,12 @@ public class HomeFragment extends Fragment {
 
         date = getView().findViewById(R.id.dateHome);
         setDate();
+        getView().findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToCreatePageDiary();
+            }
+        });
     }
 
     private void setDate(){
@@ -54,5 +63,10 @@ public class HomeFragment extends Fragment {
         String month_name = month_date.format(cal.getTime());
         int year = Calendar.getInstance().get(Calendar.YEAR);
         date.setText(month_name + " " + year);
+    }
+
+    public void goToCreatePageDiary(){
+        Intent intent = new Intent(getContext(), NewPageDiaryActivity.class);
+        startActivity(intent);
     }
 }

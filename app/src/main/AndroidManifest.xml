@@ -10,17 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dairys">
         <activity
-            android:name=".Access.RegistrationActivity"
-            android:screenOrientation="portrait"
+            android:name=".NewPageDiaryActivity"
             android:exported="false" />
+        <activity
+            android:name=".Access.RegistrationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main" />
         <activity
             android:name=".Access.LoginActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,4 +9,9 @@
     <color name="light_gray">#D3D3D3</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="green_A400">#00E676</color>
+    <color name="cyan_A400">#00E5FF</color>
+    <color name="lime_A200">#EEFF41</color>
+    <color name="orange_A400">#FF9100</color>
+    <color name="red_500">#F44336</color>
 </resources>

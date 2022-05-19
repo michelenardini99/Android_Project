@@ -1,15 +1,27 @@
 package com.example.dairys.Fragment;
 
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -20,17 +32,19 @@ import androidx.fragment.app.DialogFragment;
 import com.example.dairys.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
 public class NewPage extends DialogFragment {
 
-    private static final int CAMERA_REQUEST = 1888;
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
     private EditText dataPicker;
     private ExtendedFloatingActionButton camera;
     private LinearLayout layoutBreakfast;
+    private ImageView imagePhoto;
 
 
     static NewPage newInstance(){
@@ -57,6 +71,7 @@ public class NewPage extends DialogFragment {
         dataPicker = getView().findViewById(R.id.dataPicker);
         layoutBreakfast = (LinearLayout) getView().findViewById(R.id.breakfastLayout);
         camera = getView().findViewById(R.id.camera);
+        imagePhoto = getView().findViewById(R.id.image);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -83,29 +98,21 @@ public class NewPage extends DialogFragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                }
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
             }
         });
     }
 
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE)
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                Toast.makeText(getActivity(), "camera permission granted", Toast.LENGTH_LONG).show();
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            }
-            else
-            {
-                Toast.makeText(getActivity(), "camera permission denied", Toast.LENGTH_LONG).show();
-            }
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(resultCode == Activity.RESULT_OK){
+            Uri selectedImage = data.getData();
+            imagePhoto.setVisibility(View.VISIBLE);
+            imagePhoto.setImageURI(selectedImage);
         }
     }
 }

@@ -47,4 +47,5 @@
     <string name="snack">Snack</string>
     <string name="note">Note</string>
     <string name="camera">Camera</string>
+    <string name="pick_photo">Pick photo</string>
 </resources>

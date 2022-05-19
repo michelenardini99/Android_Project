@@ -43,4 +43,16 @@
         <item name="chipBackgroundColor">@color/background_color_generic</item>
         <item name="android:textColor">@color/text_color_chip_state_list</item>
     </style>
+    
+    <style name="FullscreenDialogTheme" parent="Theme.AppCompat.Light.DialogWhenLarge">
+        <item name="android:statusBarColor">@color/blue_500</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
+    </style>
+
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextColor">@color/blue_500</item>
+        <item name="boxStrokeColor">@color/blue_500</item>
+    </style>
 </resources>

@@ -1,21 +1,17 @@
 package com.example.dairys.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.dairys.MainActivity;
-import com.example.dairys.NewPageDiaryActivity;
 import com.example.dairys.R;
-import com.example.dairys.databinding.ActivityMainBinding;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.text.SimpleDateFormat;
@@ -66,7 +62,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void goToCreatePageDiary(){
-        Intent intent = new Intent(getContext(), NewPageDiaryActivity.class);
-        startActivity(intent);
+        DialogFragment dialogFragment = NewPage.newInstance();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "tag");
     }
 }

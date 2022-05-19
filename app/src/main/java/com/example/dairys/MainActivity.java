@@ -121,9 +121,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void goToCreatePageDiary(){
-        Intent intent = new Intent(this, NewPageDiaryActivity.class);
-        startActivity(intent);
-    }
 
 }

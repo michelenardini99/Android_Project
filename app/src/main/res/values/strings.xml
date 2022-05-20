@@ -48,4 +48,8 @@
     <string name="note">Note</string>
     <string name="camera">Camera</string>
     <string name="pick_photo">Pick photo</string>
+    <string name="new_page_title">New Page</string>
+    <string name="save">Save</string>
+    <string name="content_description_save">Save</string>
+    <string name="search">Search food</string>
 </resources>

@@ -1,77 +1,44 @@
-package com.example.dairys.Fragment;
+package com.example.dairys;
 
-import static androidx.core.content.ContextCompat.checkSelfPermission;
-
-import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dairys.R;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NewPage extends DialogFragment {
+public class NewPage extends AppCompatActivity {
 
 
     private EditText dataPicker;
     private ExtendedFloatingActionButton camera;
     private LinearLayout layoutBreakfast;
     private ImageView imagePhoto;
+    private Chip breakfast;
 
-
-    static NewPage newInstance(){
-        return new NewPage();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullscreenDialogTheme);
-    }
+        setContentView(R.layout.activity_new_page_diary);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_new_page_diary, container, false);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        dataPicker = getView().findViewById(R.id.dataPicker);
-        layoutBreakfast = (LinearLayout) getView().findViewById(R.id.breakfastLayout);
-        camera = getView().findViewById(R.id.camera);
-        imagePhoto = getView().findViewById(R.id.image);
+        dataPicker = findViewById(R.id.dataPicker);
+        camera = findViewById(R.id.camera);
+        imagePhoto = findViewById(R.id.image);
+        breakfast = findViewById(R.id.breakfast);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -83,7 +50,7 @@ public class NewPage extends DialogFragment {
         dataPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date = day + "/" + month + "/" + year;
@@ -103,13 +70,25 @@ public class NewPage extends DialogFragment {
                 startActivityForResult(pickPhoto , 1);
             }
         });
+
+        breakfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSelectFood();
+            }
+        });
+    }
+
+    private void goToSelectFood() {
+        Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
+        startActivity(intent);
     }
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if(resultCode == Activity.RESULT_OK){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
             imagePhoto.setVisibility(View.VISIBLE);
             imagePhoto.setImageURI(selectedImage);

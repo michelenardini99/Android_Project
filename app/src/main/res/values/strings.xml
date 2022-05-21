@@ -52,4 +52,6 @@
     <string name="save">Save</string>
     <string name="content_description_save">Save</string>
     <string name="search">Search food</string>
+    <string name="add_food">Add food</string>
+    <string name="save_list_food">Save List</string>
 </resources>

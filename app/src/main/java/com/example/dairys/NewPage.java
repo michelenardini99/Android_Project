@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +51,7 @@ public class NewPage extends AppCompatActivity {
         dataPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(NewPage.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         String date = day + "/" + month + "/" + year;
@@ -74,13 +75,14 @@ public class NewPage extends AppCompatActivity {
         breakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSelectFood();
+                goToSelectFood(breakfast.getText().toString());
             }
         });
     }
 
-    private void goToSelectFood() {
-        Intent intent = new Intent(getApplicationContext(), FoodActivity.class);
+    private void goToSelectFood(String category) {
+        Intent intent = new Intent(NewPage.this, FoodActivity.class);
+        intent.putExtra("Category", category);
         startActivity(intent);
     }
 

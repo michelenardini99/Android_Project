@@ -4,12 +4,22 @@ public class MyFoodData {
 
     private String foodName;
     private String foodKcal;
-    private Integer foodImage;
+    private Integer imageView;
+    boolean isSelected;
 
-    public MyFoodData(String foodName, String foodKcal, Integer foodImage) {
+    public MyFoodData(String foodName, String foodKcal, Integer imageView) {
         this.foodName = foodName;
         this.foodKcal = foodKcal;
-        this.foodImage = foodImage;
+        this.imageView = imageView;
+        isSelected = false;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String getFoodName() {
@@ -29,10 +39,10 @@ public class MyFoodData {
     }
 
     public Integer getFoodImage() {
-        return foodImage;
+        return imageView;
     }
 
-    public void setFoodImage(Integer foodImage) {
-        this.foodImage = foodImage;
+    public void setFoodImage(Integer imageView) {
+        this.imageView = imageView;
     }
 }

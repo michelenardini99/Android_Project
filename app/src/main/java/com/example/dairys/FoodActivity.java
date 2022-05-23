@@ -1,5 +1,6 @@
 package com.example.dairys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,36 +8,39 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
+import com.example.dairys.Database.AppDatabase;
+import com.example.dairys.Database.Food;
 import com.google.android.material.appbar.MaterialToolbar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
 
-    private List<MyFoodData> myFoodDataList = new ArrayList<>();
+    private List<Food> myFoodDataList = new ArrayList<>();
     private RecyclerView recyclerView;
     private MaterialToolbar mActionBarToolbar;
     private SearchView searchView;
     private MyFoodAdapter myFoodAdapter;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_selected);
 
-        Intent intent = getIntent();
+        db = AppDatabase.getInstance(FoodActivity.this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewFood);
         mActionBarToolbar = findViewById(R.id.topAppBarFood);
@@ -47,17 +51,9 @@ public class FoodActivity extends AppCompatActivity {
 
         setSupportActionBar(mActionBarToolbar);
 
-        getSupportActionBar().setTitle(intent.getStringExtra("Category"));
+        getSupportActionBar().setTitle(getIntent().getStringExtra("Category"));
 
-        myFoodDataList = Arrays.asList(
-                new MyFoodData("Pizza", "256 kcal", R.drawable.pizza),
-                new MyFoodData("Mela", "60 kcal", R.drawable.mele),
-                new MyFoodData("Pasta al ragu", "335 kcal", R.drawable.ragu),
-                new MyFoodData("Hamburger", "302 kcal", R.drawable.hamburgher),
-                new MyFoodData("Insalata greca", "351 kcal", R.drawable.insalata_greca),
-                new MyFoodData("Salsiccia", "208 kcal", R.drawable.salsiccia),
-                new MyFoodData("Crema catalana", "212 kcal", R.drawable.crema_catalana)
-        );
+        myFoodDataList = db.foodDao().getAll();
 
         myFoodAdapter = new MyFoodAdapter(myFoodDataList, FoodActivity.this);
         recyclerView.setAdapter(myFoodAdapter);
@@ -82,19 +78,26 @@ public class FoodActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.top_app_bar_food, menu);
         return true;
-
-
     }
 
 
     public void saveAndReturn(){
-        int i = 0;
-        for(MyFoodData foodData: myFoodAdapter.myFoodDataList){
+        List<Food> foodSelected = new ArrayList<>();
+        for(Food foodData: myFoodAdapter.myFoodDataList){
             if (foodData.isSelected()){
-                i++;
+                foodSelected.add(foodData);
             }
         }
-        Toast.makeText(FoodActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+        DataWrapper dataWrapper = (DataWrapper) getIntent().getSerializableExtra("food");
+        Map<String, List<Food>> foodList = dataWrapper.getData();
+        if(foodList.containsKey(getIntent().getStringExtra("Category"))){
+            foodList.remove(getIntent().getStringExtra("Category"));
+        }
+        foodList.put(getIntent().getStringExtra("Category"), foodSelected);
+        Intent data = new Intent();
+        data.putExtra("food", (Serializable) foodList);
+        setResult(Activity.RESULT_OK, data);
+        finish();
     }
 
     @Override
@@ -108,8 +111,8 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     private void filterList(String newText) {
-        List<MyFoodData> filteredList = new ArrayList<>();
-        for(MyFoodData foodData: myFoodDataList){
+        List<Food> filteredList = new ArrayList<>();
+        for(Food foodData: myFoodDataList){
             if(foodData.getFoodName().toLowerCase().contains(newText.toLowerCase())){
                 filteredList.add(foodData);
             }

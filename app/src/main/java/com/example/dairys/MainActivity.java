@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dairys.Database.AppDatabase;
 import com.example.dairys.Fragment.DreamDiaryFragment;
 import com.example.dairys.Fragment.HomeFragment;
 import com.example.dairys.Fragment.SettingsFragment;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private MaterialToolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private BottomNavigationView bottomNavigationView;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
+        db = AppDatabase.getInstance(MainActivity.this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

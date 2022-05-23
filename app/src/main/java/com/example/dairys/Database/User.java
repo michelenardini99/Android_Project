@@ -10,13 +10,13 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "username_column")
+    @ColumnInfo(name = "username")
     private String username;
 
-    @ColumnInfo(name = "email_column")
+    @ColumnInfo(name = "email")
     private String email;
 
-    @ColumnInfo(name = "password_column")
+    @ColumnInfo(name = "password")
     private String password;
 
     public User(String username, String email, String password) {

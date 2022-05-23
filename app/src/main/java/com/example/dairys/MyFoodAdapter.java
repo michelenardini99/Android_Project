@@ -1,31 +1,35 @@
 package com.example.dairys;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.dairys.Database.Food;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class MyFoodAdapter extends  RecyclerView.Adapter<MyFoodAdapter.ViewHolder>{
 
-    List<MyFoodData> myFoodDataList;
+    List<Food> myFoodDataList;
     Context context;
 
-    public MyFoodAdapter(List<MyFoodData> myFoodDataList, FoodActivity activity) {
+    public MyFoodAdapter(List<Food> myFoodDataList, FoodActivity activity) {
         this.myFoodDataList = myFoodDataList;
         this.context = activity;
     }
@@ -42,10 +46,10 @@ public class MyFoodAdapter extends  RecyclerView.Adapter<MyFoodAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final MyFoodData myFoodData = myFoodDataList.get(position);
+        final Food myFoodData = myFoodDataList.get(position);
         holder.textViewName.setText(myFoodData.getFoodName());
-        holder.textViewKcal.setText(myFoodData.getFoodKcal());
-        holder.imageView.setImageResource(myFoodData.getFoodImage());
+        holder.textViewKcal.setText(myFoodData.getKcal() + " kcal");
+        holder.imageView.setImageResource(myFoodData.getPhotoFood());
 
         holder.addFoodAnimation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +65,13 @@ public class MyFoodAdapter extends  RecyclerView.Adapter<MyFoodAdapter.ViewHolde
         });
     }
 
+
     @Override
     public int getItemCount() {
         return myFoodDataList.size();
     }
 
-    public void setFilteredList(List<MyFoodData> filteredList) {
+    public void setFilteredList(List<Food> filteredList) {
         this.myFoodDataList = filteredList;
         notifyDataSetChanged();
     }

@@ -28,11 +28,6 @@ public class RegistrationActivity extends AppCompatActivity {
         textInputLayoutPassword = findViewById(R.id.passwordRegistration);
         textInputLayoutEmail = findViewById(R.id.emailRegistration);
         textInputLayoutUsername = findViewById(R.id.userNameRegistration);
-
-        db = Room.databaseBuilder(this, AppDatabase.class, "diary_database")
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build();
     }
 
     public void onSignInClicked(View v)
@@ -44,8 +39,8 @@ public class RegistrationActivity extends AppCompatActivity {
         if(Access.isPasswordCorrect(password, textInputLayoutPassword)
             && Access.isEmailCorrect(email, textInputLayoutEmail)
             && Access.isUsernameCorrect(username, textInputLayoutUsername)){
+            db = AppDatabase.getInstance(RegistrationActivity.this);
             db.userDao().insertAll(new User(username, email, password));
-            finish();
             goToLogin();
         }
     }

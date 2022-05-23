@@ -12,7 +12,7 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<User> getAll();
 
-    @Query("SELECT * FROM user WHERE email_column LIKE :email AND password_column LIKE :password")
+    @Query("SELECT * FROM user WHERE email LIKE :email AND password LIKE :password")
     List<User> login(String email, String password);
 
     @Insert

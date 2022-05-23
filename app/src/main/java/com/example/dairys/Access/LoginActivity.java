@@ -19,9 +19,9 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity{
 
-    private AppDatabase db;
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutEmail;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +30,6 @@ public class LoginActivity extends AppCompatActivity{
 
         textInputLayoutPassword = findViewById(R.id.passwordLogin);
         textInputLayoutEmail = findViewById(R.id.emailLogin);
-
-        if(savedInstanceState == null){
-            db = Room.databaseBuilder(LoginActivity.this, AppDatabase.class, "diary_database")
-                    .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
-                    .build();
-        }
     }
 
     public void goToRegistration(View view){
@@ -51,12 +44,12 @@ public class LoginActivity extends AppCompatActivity{
 
         List<User> checkLogin;
 
+        db = AppDatabase.getInstance(LoginActivity.this);
         if(Access.isPasswordCorrect(password, textInputLayoutPassword)
                 && Access.isEmailCorrect(email, textInputLayoutEmail)){
             checkLogin = db.userDao().login(email, password);
             if(!checkLogin.isEmpty()){
                 goToHome(checkLogin.get(0).getUsername());
-                finish();
             }else{
                 textInputLayoutEmail.setError("Email can be wrong");
                 textInputLayoutPassword.setError("Password can be wrong");

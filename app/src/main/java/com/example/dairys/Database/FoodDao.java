@@ -13,4 +13,7 @@ public interface FoodDao {
 
     @Insert
     void insertAll(Food...foods);
+
+    @Query("SELECT * FROM food WHERE foodId LIKE :id")
+    List<Food> getFoodFromId(int id);
 }

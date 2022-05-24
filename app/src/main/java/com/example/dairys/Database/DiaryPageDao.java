@@ -18,4 +18,7 @@ public interface DiaryPageDao {
     @Query("SELECT * FROM diarypage ORDER BY diaryId DESC LIMIT 1;")
     List<DiaryPage> getLastInsert();
 
+    @Query("SELECT * FROM diarypage WHERE date LIKE :date")
+    List<DiaryPage> getDiaryPageForDate(String date);
+
 }

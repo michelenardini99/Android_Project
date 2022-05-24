@@ -54,4 +54,12 @@
     <string name="search">Search food</string>
     <string name="add_food">Add food</string>
     <string name="save_list_food">Save List</string>
+    <string name="date_home">Current date</string>
+    <string name="really_happy_phrase">It was a beautiful day</string>
+    <string name="food_eaten">What you ate today</string>
+    <string name="notPage">No diary page written on this day</string>
+    <string name="happy_phrase">It was a good day</string>
+    <string name="so_so_phrase">It was a normal day</string>
+    <string name="bad_phrase">What a bad day</string>
+    <string name="terrible_phrase">I think I want to die</string>
 </resources>

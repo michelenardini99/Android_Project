@@ -221,7 +221,7 @@ public class NewPage extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(NewPage.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String date = day + "/" + month + "/" + year;
+                        String date = day + "/" + (month+1) + "/" + year;
                         dataPicker.setText(date);
                     }
                 }, year, month, day);

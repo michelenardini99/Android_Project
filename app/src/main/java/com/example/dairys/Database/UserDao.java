@@ -18,4 +18,19 @@ public interface UserDao {
     @Insert
     void insertAll(User...users);
 
+    @Query("SELECT * FROM user WHERE is_logged LIKE 1")
+    List<User> userLogged();
+
+    @Query("UPDATE user SET is_logged = 0")
+    void setAllNotLogged();
+
+    @Query("UPDATE user SET is_logged = 1 WHERE username = :username")
+    void updateLogged(String username);
+
+    @Query("UPDATE user SET birthday = :birthday WHERE username = :username")
+    void updateBirthday(String birthday, String username);
+
+    @Query("UPDATE user SET number = :number WHERE username = :username")
+    void updateNumber(String number, String username);
+
 }

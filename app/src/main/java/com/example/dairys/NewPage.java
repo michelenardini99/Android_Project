@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.dairys.Access.LoginActivity;
 import com.example.dairys.Database.AppDatabase;
+import com.example.dairys.Database.DiaryActivity;
 import com.example.dairys.Database.DiaryFood;
 import com.example.dairys.Database.DiaryPage;
 import com.example.dairys.Database.Food;
@@ -173,6 +174,9 @@ public class NewPage extends AppCompatActivity {
                         db.diaryFoodDao().insertAll(new DiaryFood(finalDiaryId, food.getFoodId(), category));
                     }
                 }
+                activity.forEach( a -> {
+                    db.diaryActivityDao().insertAll(new DiaryActivity(finalDiaryId, db.activityDao().getActivityFromName(a).get(0).getActivityId()));
+                });
                 break;
         }
         Intent intent = new Intent(NewPage.this, MainActivity.class);

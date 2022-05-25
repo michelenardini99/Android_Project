@@ -19,7 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.dairys.ActivityAdapter;
+import com.example.dairys.Database.Activity;
 import com.example.dairys.Database.AppDatabase;
+import com.example.dairys.Database.DiaryActivity;
 import com.example.dairys.Database.DiaryFood;
 import com.example.dairys.Database.DiaryPage;
 import com.example.dairys.Database.Food;
@@ -40,19 +44,20 @@ import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
-    String dateForSearch;
-    ImageView imageHumor;
-    ImageView wallpaperCard;
+    private ImageView imageHumor;
+    private ImageView wallpaperCard;
     private MaterialTextView date;
-    private TextView dateOfPage;
     private RecyclerView listBreakfast;
     private RecyclerView listLunch;
     private RecyclerView listDinner;
     private RecyclerView listSnack;
-    MaterialCardView cardPage;
-    TextView noPage;
-    TextView titlePage;
+    private RecyclerView listActivity;
+    private MaterialCardView cardPage;
+    private TextView noPage;
+    private TextView titlePage;
+    private TextView noteForPage;
     private AppDatabase db;
+    private LottieAnimationView emptyAnimation;
 
 
     public HomeFragment() {
@@ -77,11 +82,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        noteForPage = getView().findViewById(R.id.noteForPage);
+        emptyAnimation = getView().findViewById(R.id.emptyAnimation);
         wallpaperCard = getView().findViewById(R.id.imagePage);
         titlePage = getView().findViewById(R.id.titlePage);
         cardPage = getView().findViewById(R.id.pageCard);
         noPage = getView().findViewById(R.id.notPage);
         imageHumor = getView().findViewById(R.id.humorDay);
+        listActivity = getView().findViewById(R.id.list_activity);
         listBreakfast = getView().findViewById(R.id.list_breakfast);
         listLunch = getView().findViewById(R.id.list_lunch);
         listDinner = getView().findViewById(R.id.list_dinner);
@@ -141,6 +149,8 @@ public class HomeFragment extends Fragment {
         listLunch.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         listSnack.setHasFixedSize(true);
         listSnack.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        listActivity.setHasFixedSize(true);
+        listActivity.setLayoutManager(new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -159,12 +169,36 @@ public class HomeFragment extends Fragment {
             setFoodCard(id, "Lunch", listLunch);
             setFoodCard(id, "Snack", listSnack);
             setImageCard(page.get(0).getPhoto());
+            setNote(page.get(0).getNote());
+            setActivity(id);
             cardPage.setVisibility(View.VISIBLE);
             noPage.setVisibility(View.INVISIBLE);
+            emptyAnimation.loop(false);
+            emptyAnimation.setVisibility(View.INVISIBLE);
         }else{
             cardPage.setVisibility(View.INVISIBLE);
             noPage.setVisibility(View.VISIBLE);
+            emptyAnimation.setVisibility(View.VISIBLE);
+            emptyAnimation.playAnimation();
+            emptyAnimation.loop(true);
+
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setActivity(int id) {
+        List<DiaryActivity> diaryActivityList = db.diaryActivityDao().getFromPageId(id);
+        if(diaryActivityList.size() != 0){
+            List<Activity> activityList = new ArrayList<>();
+            diaryActivityList.forEach( p -> {
+                activityList.add(db.activityDao().getActivityFromId(p.getActivityId()).get(0));
+            });
+            listActivity.setAdapter(new ActivityAdapter(activityList, getActivity()));
+        }
+    }
+
+    private void setNote(String note) {
+        noteForPage.setText(note);
     }
 
     private void setImageCard(String photo) {
@@ -208,7 +242,6 @@ public class HomeFragment extends Fragment {
             foodForPage.forEach( p -> {
                 foodList.add(db.foodDao().getFoodFromId(p.foodId).get(0));
             });
-            Toast.makeText(getContext(), category + " " + foodList.size(), Toast.LENGTH_SHORT).show();
             recyclerView.setAdapter(new FoodForPageAdapter(foodList, getActivity()));
         }
     }

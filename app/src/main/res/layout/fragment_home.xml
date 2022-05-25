@@ -120,7 +120,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.42000002" />
+            app:layout_constraintVertical_bias="0.26999998" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/emptyAnimation"
+            android:contentDescription="@string/empty_animation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/notPage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/addButton"
+            app:lottie_rawRes="@raw/empty_page"/>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/pageCard"
@@ -192,7 +204,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginRight="10dp"
                         android:gravity="center"
                         android:text="@string/food_eaten"
                         android:textColor="@color/black"
@@ -233,8 +244,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:gravity="center_vertical"
+                            android:layout_marginRight="16dp"
                             android:text="@string/lunch" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -258,8 +272,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:gravity="center_vertical"
+                            android:layout_marginRight="16dp"
                             android:text="@string/dinner" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -283,8 +300,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:gravity="center_vertical"
+                            android:layout_marginRight="16dp"
                             android:text="@string/snack" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -293,6 +313,52 @@
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:layout_margin="16dp"
+                        android:text="@string/activityDone"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textSize="16sp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/list_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/light_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/noteForPage"
+                        android:layout_margin="20dp"
+                        android:textSize="30sp"
+                        android:fontFamily="@font/diary"
+                        />
 
                 </LinearLayout>
 

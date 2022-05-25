@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dairys.Database.AppDatabase;
+import com.example.dairys.Database.User;
 import com.example.dairys.Fragment.DreamDiaryFragment;
 import com.example.dairys.Fragment.HomeFragment;
 import com.example.dairys.Fragment.SettingsFragment;
@@ -24,6 +26,10 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,13 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         db = AppDatabase.getInstance(MainActivity.this);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            View headerView = navigationView.getHeaderView(0);
-            TextView navUsername = (TextView) headerView.findViewById(R.id.username);
-            String value = extras.getString("username");
-            navUsername.setText(value);
-        }
+        getUserLoggedData();
 
         goToHomeFragment();
 
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
+
         switch (id){
             case R.id.profile:
-                Toast.makeText(getApplicationContext(), "Click profile button", Toast.LENGTH_SHORT).show();
-                drawerLayout.closeDrawers();
+                startActivity(new Intent(this, EditProfileActivity.class));
                 break;
             case R.id.dream_board:
                 Toast.makeText(getApplicationContext(), "Click dream board button", Toast.LENGTH_SHORT).show();
@@ -122,6 +122,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         return true;
+    }
+
+    public void getUserLoggedData(){
+        List<User> user = db.userDao().userLogged();
+        if(user.size() != 0){
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.username);
+            navUsername.setText(user.get(0).getUsername());
+            if (user.get(0).getImageProfile() != null){
+                CircleImageView imageProfile = headerView.findViewById(R.id.image_user);
+                imageProfile.setImageURI(Uri.parse(user.get(0).getImageProfile()));
+            }
+        }
     }
 
 

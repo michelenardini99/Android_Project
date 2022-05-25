@@ -62,4 +62,11 @@
     <string name="so_so_phrase">It was a normal day</string>
     <string name="bad_phrase">What a bad day</string>
     <string name="terrible_phrase">I think I want to die</string>
+    <string name="empty_animation">Empty page</string>
+    <string name="activityDone">What activity did you do?</string>
+    <string name="loading">Loading</string>
+    <string name="saveProfileChange">Save profile changes</string>
+    <string name="save_profile_changes">Save</string>
+    <string name="not_insered">"Not yet inserted "</string>
+    <string name="not_inserted">"Not yet inserted "</string>
 </resources>

@@ -30,6 +30,10 @@ public class LoginActivity extends AppCompatActivity{
 
         textInputLayoutPassword = findViewById(R.id.passwordLogin);
         textInputLayoutEmail = findViewById(R.id.emailLogin);
+
+        db = AppDatabase.getInstance(LoginActivity.this);
+
+        db.userDao().setAllNotLogged();
     }
 
     public void goToRegistration(View view){
@@ -43,12 +47,11 @@ public class LoginActivity extends AppCompatActivity{
         String email = textInputLayoutEmail.getEditText().getText().toString();
 
         List<User> checkLogin;
-
-        db = AppDatabase.getInstance(LoginActivity.this);
         if(Access.isPasswordCorrect(password, textInputLayoutPassword)
                 && Access.isEmailCorrect(email, textInputLayoutEmail)){
             checkLogin = db.userDao().login(email, password);
             if(!checkLogin.isEmpty()){
+                db.userDao().updateLogged(checkLogin.get(0).getUsername());
                 goToHome(checkLogin.get(0).getUsername());
             }else{
                 textInputLayoutEmail.setError("Email can be wrong");

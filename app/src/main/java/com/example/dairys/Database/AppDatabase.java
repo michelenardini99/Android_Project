@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Food.class, DiaryPage.class, Activity.class, DiaryFood.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Food.class, DiaryPage.class, Activity.class, DiaryFood.class, DiaryActivity.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -20,6 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ActivityDao activityDao();
     public abstract DiaryPageDao diaryPageDao();
     public abstract DiaryFoodDao diaryFoodDao();
+    public abstract DiaryActivityDao diaryActivityDao();
     public synchronized static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             INSTANCE = buildDatabase(context);

@@ -33,4 +33,7 @@ public interface UserDao {
     @Query("UPDATE user SET number = :number WHERE username = :username")
     void updateNumber(String number, String username);
 
+    @Query("UPDATE user SET image_profile = :image WHERE username = :username")
+    void updateImageProfile(String image, String username);
+
 }

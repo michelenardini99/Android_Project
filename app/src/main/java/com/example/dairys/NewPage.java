@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import java.sql.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,11 +36,11 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -160,9 +161,16 @@ public class NewPage extends AppCompatActivity {
                 AppDatabase db = AppDatabase.getInstance(NewPage.this);
                 int diaryId = db.diaryPageDao().getLastInsert().isEmpty() ? 0 : db.diaryPageDao().getLastInsert().get(0).getDiaryId();
                 diaryId++;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = null;
+                try {
+                    date = new Date(sdf.parse(dataPicker.getText().toString()).getTime());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 db.diaryPageDao().insertAll(
                         new DiaryPage(diaryId,
-                                dataPicker.getText().toString(),
+                                date,
                                 noteEditText.getText().toString(),
                                 selectedImage == null ? null : selectedImage.toString(),
                                 humorSelected
@@ -229,7 +237,7 @@ public class NewPage extends AppCompatActivity {
                         dataPicker.setText(date);
                     }
                 }, year, month, day);
-                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
                 datePickerDialog.show();
             }
         });

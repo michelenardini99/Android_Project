@@ -160,7 +160,10 @@ public class HomeFragment extends Fragment {
         Calendar c = Calendar.getInstance();
         c.setTime(dateToParse);
         String dateToSend = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
-        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(dateToSend);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date(sdf.parse(dateToSend).getTime());
+        long l = date.getTime();
+        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(l);
         if(page.size() != 0){
             int id = page.get(0).getDiaryId();
             setHumorEmoji(page.get(0).getHumor());

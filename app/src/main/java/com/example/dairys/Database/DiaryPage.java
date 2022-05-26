@@ -3,6 +3,9 @@ package com.example.dairys.Database;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.sql.Date;
 
 @Entity
 public class DiaryPage {
@@ -10,7 +13,7 @@ public class DiaryPage {
     @PrimaryKey
     private int diaryId;
 
-    public DiaryPage(int diaryId, String date, String note, String photo, String humor) {
+    public DiaryPage(int diaryId, Date date, String note, String photo, String humor) {
         this.diaryId = diaryId;
         this.date = date;
         this.note = note;
@@ -26,11 +29,11 @@ public class DiaryPage {
         this.diaryId = diaryId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -59,7 +62,8 @@ public class DiaryPage {
     }
 
     @ColumnInfo(name = "date")
-    private String date;
+    @TypeConverters({DateTypeConvertor.class})
+    private Date date;
 
     @ColumnInfo(name = "note")
     private String note;

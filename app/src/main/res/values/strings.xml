@@ -69,4 +69,5 @@
     <string name="save_profile_changes">Save</string>
     <string name="not_insered">"Not yet inserted "</string>
     <string name="not_inserted">"Not yet inserted "</string>
+    <string name="select_data_fro_chart">Select data</string>
 </resources>

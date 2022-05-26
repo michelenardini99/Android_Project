@@ -2,16 +2,18 @@ package com.example.dairys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dairys.Database.AppDatabase;
 import com.example.dairys.Database.User;
@@ -27,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_IMAGE = 1;
     AppDatabase db;
     CircleImageView profileImage;
     TextView welcome;
@@ -37,6 +40,7 @@ public class EditProfileActivity extends AppCompatActivity {
     ExtendedFloatingActionButton save;
 
     private List<User> user;
+    private Uri selectedImage = null;
     private String birthdayInserted = null;
     private String numberInserted = null;
 
@@ -67,6 +71,8 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 db.userDao().updateBirthday(birthdayInserted, username.getText().toString());
                 db.userDao().updateNumber(numberInserted, username.getText().toString());
+                db.userDao().updateImageProfile(selectedImage.toString(), username.getText().toString());
+                startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
             }
         });
 
@@ -77,6 +83,26 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , REQUEST_CODE_IMAGE);
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_CODE_IMAGE){
+                selectedImage = data.getData();
+                profileImage.setImageURI(selectedImage);
+            }
+        }
     }
 
     private void insertNumber() {
@@ -117,6 +143,10 @@ public class EditProfileActivity extends AppCompatActivity {
         if(user.get(0).getNumber() != null){
             numberInserted = user.get(0).getNumber();
             number.setText(numberInserted);
+        }
+        if(user.get(0).getImageProfile() != null){
+            selectedImage = Uri.parse(user.get(0).getImageProfile());
+            profileImage.setImageURI(selectedImage);
         }
     }
 

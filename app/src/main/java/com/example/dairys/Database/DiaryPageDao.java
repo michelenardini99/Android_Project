@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.sql.Date;
 import java.util.List;
 
 @Dao
@@ -19,6 +20,9 @@ public interface DiaryPageDao {
     List<DiaryPage> getLastInsert();
 
     @Query("SELECT * FROM diarypage WHERE date LIKE :date")
-    List<DiaryPage> getDiaryPageForDate(String date);
+    List<DiaryPage> getDiaryPageForDate(long date);
+
+    @Query("SELECT * FROM diarypage WHERE date BETWEEN :dateFrom AND :dateTo")
+    List<DiaryPage> getDiaryPageBetweenDate(long dateFrom, long dateTo);
 
 }

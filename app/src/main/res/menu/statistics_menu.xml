@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/humorStatistics"
+        android:icon="@drawable/ic_really_happy"
+        android:title="@string/humor" />
+    <item android:id="@+id/activityStatistics"
+        android:icon="@drawable/ic_sport"
+        android:title="@string/activityStatistic" />
+    <item android:id="@+id/foodStatistics"
+        android:icon="@drawable/ic_food"
+        android:title="@string/food" />
+</menu>

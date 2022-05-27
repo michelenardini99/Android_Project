@@ -22,7 +22,7 @@ public interface DiaryPageDao {
     @Query("SELECT * FROM diarypage WHERE date LIKE :date")
     List<DiaryPage> getDiaryPageForDate(long date);
 
-    @Query("SELECT * FROM diarypage WHERE date BETWEEN :dateFrom AND :dateTo")
+    @Query("SELECT * FROM diarypage WHERE date BETWEEN :dateFrom AND :dateTo ORDER BY date ASC")
     List<DiaryPage> getDiaryPageBetweenDate(long dateFrom, long dateTo);
 
 }

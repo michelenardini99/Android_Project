@@ -70,4 +70,14 @@
     <string name="not_insered">"Not yet inserted "</string>
     <string name="not_inserted">"Not yet inserted "</string>
     <string name="select_data_fro_chart">Select data</string>
+    <string name="humor">Humor</string>
+    <string name="food">Food</string>
+    <string name="activityStatistic">Activity</string>
+    <string name="val_1"><![CDATA[-> 1]]></string>
+    <string name="val_2"><![CDATA[-> 2]]></string>
+    <string name="val_4"><![CDATA[-> 4]]></string>
+    <string name="val_3"><![CDATA[-> 3]]></string>
+    <string name="val_0"><![CDATA[-> 0]]></string>
+    <string name="favorites">Favorites</string>
+    <string name="like">Like</string>
 </resources>

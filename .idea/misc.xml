@@ -21,6 +21,7 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_page.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_registration.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/date_layout.xml" value="0.3921875" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/dream_card.xml" value="0.7338429464906184" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_card.xml" value="0.4547008547008547" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_page_layout.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_selected.xml" value="0.553125" />
@@ -28,7 +29,7 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_food.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_home.xml" value="0.321875" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_settings.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_statistics.xml" value="0.5111492281303602" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_statistics.xml" value="0.33" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/header.xml" value="0.75" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/navigation_drawer.xml" value="0.4625" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.5541666666666667" />
@@ -36,6 +37,7 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/navigation_drawer.xml" value="0.4635416666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/navigation_drawer_menu.xml" value="0.4625" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/search_menu.xml" value="0.3963541666666667" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/statistics_menu.xml" value="0.55" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/top_app_bar.xml" value="0.553125" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/top_app_bar_food.xml" value="0.3953125" />
         <entry key="..\:/Users/michele.nardini2/Android_Project/app/src/main/res/drawable-anydpi/ic_camera.xml" value="0.358" />

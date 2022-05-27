@@ -3,6 +3,7 @@ package com.example.dairys.Database;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE is_logged LIKE 1")
     List<User> userLogged();
 
+    @Query("SELECT * FROM user WHERE id LIKE :idUser")
+    List<User> userFromId(int idUser);
+
     @Query("UPDATE user SET is_logged = 0")
     void setAllNotLogged();
 
@@ -35,5 +39,9 @@ public interface UserDao {
 
     @Query("UPDATE user SET image_profile = :image WHERE username = :username")
     void updateImageProfile(String image, String username);
+
+    @Transaction
+    @Query("SELECT * FROM User WHERE id LIKE :id")
+    public List<UserWithDreamDiary> getUsersWithDreamDiary(int id);
 
 }

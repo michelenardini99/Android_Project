@@ -15,4 +15,7 @@ public interface DiaryFoodDao {
     @Query("SELECT * FROM diaryfood WHERE diaryId LIKE :pageId AND category LIKE :category")
     List<DiaryFood> getFromPageId(int pageId, String category);
 
+    @Query("SELECT * FROM diaryfood WHERE diaryId LIKE :pageId")
+    List<DiaryFood> getFromPageIdAll(int pageId);
+
 }

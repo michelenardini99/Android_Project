@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.dairys.Database.AppDatabase;
+import com.example.dairys.Database.DreamDiary;
 import com.example.dairys.Database.User;
 import com.example.dairys.MainActivity;
 import com.example.dairys.R;
 import com.example.dairys.databinding.ActivityLoginBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity{
@@ -41,8 +43,7 @@ public class LoginActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void onLoginClicked(View v)
-    {
+    public void onLoginClicked(View v){
         String password = textInputLayoutPassword.getEditText().getText().toString();
         String email = textInputLayoutEmail.getEditText().getText().toString();
 

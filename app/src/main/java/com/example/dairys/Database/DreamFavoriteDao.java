@@ -15,4 +15,8 @@ public interface DreamFavoriteDao {
     @Query("SELECT * FROM dreamfavorite WHERE dreamId LIKE :dreamId AND userId LIKE :userId")
     List<DreamFavorite> getIfIsFavorite(int dreamId, int userId);
 
+    @Query("DELETE FROM dreamfavorite WHERE dreamId LIKE :dreamId AND userId LIKE :userId")
+    void removeFromFavorite(int dreamId, int userId);
+
+
 }

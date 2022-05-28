@@ -12,6 +12,9 @@ public interface DreamDiaryDao {
     @Query("SELECT * FROM dreamdiary")
     List<DreamDiary> getAll();
 
+    @Query("SELECT MAX(dreamId) FROM dreamdiary")
+    int getMaxId();
+
     @Insert
     void insertAll(DreamDiary...dreamDiaries);
 

@@ -80,4 +80,7 @@
     <string name="val_0"><![CDATA[-> 0]]></string>
     <string name="favorites">Favorites</string>
     <string name="like">Like</string>
+    <string name="save_dream">Save dream</string>
+    <string name="dream_Animation">Dream animation</string>
+    <string name="new_dream_button">New dream button</string>
 </resources>

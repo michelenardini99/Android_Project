@@ -5,12 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.dairys.R;
-
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 @Entity
 public class DreamDiary {
@@ -31,10 +27,10 @@ public class DreamDiary {
     private int userCreatorId;
 
     @ColumnInfo(name = "date_insert")
-    @TypeConverters({DateTypeConvertor.class})
-    private Date dateInsert;
+    private String dateInsert;
 
-    public DreamDiary(String title, String story, int like, int userCreatorId, Date dateInsert) {
+    public DreamDiary(int dreamId, String title, String story, int like, int userCreatorId, String dateInsert) {
+        this.dreamId = dreamId;
         this.title = title;
         this.story = story;
         this.like = like;
@@ -82,18 +78,17 @@ public class DreamDiary {
         this.userCreatorId = userCreatorId;
     }
 
-    public Date getDateInsert() {
+    public String getDateInsert() {
         return dateInsert;
     }
 
-    public void setDateInsert(Date dateInsert) {
+    public void setDateInsert(String dateInsert) {
         this.dateInsert = dateInsert;
     }
 
     public static DreamDiary[] populateData(){
-        Date date = (Date) Calendar.getInstance().getTime();
         DreamDiary[] dreamDiaries = new DreamDiary[]{
-                new DreamDiary("Prova", "Prova", 35, 1, date)
+                new DreamDiary(1,"Prova", "Prova", 35, 1, "28/05/2022")
         };
         return  dreamDiaries;
     }

@@ -88,7 +88,7 @@ public class DreamDiary {
 
     public static DreamDiary[] populateData(){
         DreamDiary[] dreamDiaries = new DreamDiary[]{
-                new DreamDiary(1,"Prova", "Prova", 35, 1, "28/05/2022")
+                new DreamDiary(1,"Prova", "Prova", 35, 1, "28 mag 2022")
         };
         return  dreamDiaries;
     }

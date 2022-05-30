@@ -21,4 +21,7 @@ public interface DreamDiaryDao {
     @Query("UPDATE dreamdiary SET `like` = :like WHERE dreamId LIKE :dreamId")
     void setNumberLiked(int like, int dreamId);
 
+    @Query("SELECT * FROM dreamdiary ORDER BY `like` DESC")
+    List<DreamDiary> orderByLike();
+
 }

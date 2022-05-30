@@ -1,16 +1,13 @@
 package com.example.dairys.Fragment;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.format.DateFormat;
@@ -20,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.example.dairys.Database.Activity;
 import com.example.dairys.Database.AppDatabase;
@@ -30,11 +26,8 @@ import com.example.dairys.Database.DiaryPage;
 import com.example.dairys.Database.Food;
 import com.example.dairys.R;
 import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -219,15 +212,28 @@ public class StatisticsFragment extends Fragment {
         lineDataSet.setDrawValues(false);
 
         LineData lineData = new LineData(iLineDataSets);
+        lineData.setValueTextColor(setTextColor());
         lineChart.setData(lineData);
         lineChart.invalidate();
         lineChart.animateX(4000, Easing.EaseInOutQuad);
 
+        lineChart.getXAxis().setTextColor(setTextColor());
+        lineChart.getAxisLeft().setTextColor(setTextColor());
+
         lineDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        lineDataSet.getValueTextColor(Color.BLACK);
 
         lineChart.setVisibility(View.VISIBLE);
         linearLayoutLegend.setVisibility(View.VISIBLE);
+
+        lineChart.setBorderColor(setTextColor());
+
+        lineChart.getDescription().setText("Humor chart");
+
+        lineChart.getDescription().setTextColor(setTextColor());
+
+        lineChart.getLegend().setTextColor(setTextColor());
+
+        lineChart.setBorderColor(setTextColor());
 
     }
 
@@ -253,13 +259,16 @@ public class StatisticsFragment extends Fragment {
         });
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Activity");
 
-        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        pieDataSet.setColors(setColor());
 
+        pieChart.setCenterTextColor(setTextColor());
+        pieChart.setHoleColor(setHoleColor());
+        pieDataSet.setValueLineColor(setTextColor());
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(true);
         pieData.setValueFormatter(new PercentFormatter(pieChart));
         pieData.setValueTextSize(12f);
-        pieData.setValueTextColor(Color.BLACK);
+        pieData.setValueTextColor(setTextColor());
 
         pieChart.setData(pieData);
         pieChart.invalidate();
@@ -269,13 +278,44 @@ public class StatisticsFragment extends Fragment {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
-        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setEntryLabelColor(setTextColor());
         pieChart.setCenterText("Spending by " + category);
         pieChart.setCenterTextSize(24);
         pieChart.getDescription().setEnabled(false);
+        pieChart.getLegend().setTextColor(setTextColor());
 
         pieChart.setVisibility(View.VISIBLE);
 
+    }
+
+    private int setTextColor(){
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                return Color.WHITE;
+            case Configuration.UI_MODE_NIGHT_NO:
+                return Color.BLACK;
+        }
+        return 0;
+    }
+
+    private int[] setColor(){
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                return ColorTemplate.MATERIAL_COLORS;
+            case Configuration.UI_MODE_NIGHT_NO:
+                return ColorTemplate.VORDIPLOM_COLORS;
+        }
+        return new int[]{0};
+    }
+
+    private int setHoleColor(){
+        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                return Color.BLACK;
+            case Configuration.UI_MODE_NIGHT_NO:
+                return Color.WHITE;
+        }
+        return 0;
     }
 
     private List<DiaryPage> getList() throws ParseException {

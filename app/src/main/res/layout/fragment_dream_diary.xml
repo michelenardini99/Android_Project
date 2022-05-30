@@ -10,6 +10,145 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/textViewSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="?colorOnSecondary"
+                android:layout_marginTop="16dp"
+                android:text="@string/sortDream"
+                app:layout_constraintBottom_toTopOf="@+id/textViewFilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/sortDream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSort"
+                app:layout_constraintStart_toEndOf="@+id/textViewSort"
+                app:layout_constraintTop_toTopOf="@+id/textViewSort"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipBackgroundColor="?colorPrimary"
+                    style="@style/CustomChipChoiceGeneric"
+                    android:id="@+id/sortDate"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textColor="@color/white"
+                    android:text="@string/date_sort"
+                    app:ensureMinTouchTargetSize="true"/>
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    app:chipBackgroundColor="?colorPrimary"
+                    style="@style/CustomChipChoiceGeneric"
+                    android:textColor="@color/white"
+                    android:id="@+id/sortLike"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_height="wrap_content"
+                    android:text="@string/like_sort"
+                    app:ensureMinTouchTargetSize="true"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/textViewFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/filterDream"
+                android:textColor="?colorOnSecondary"
+                app:layout_constraintBottom_toBottomOf="@+id/filterDream"
+                app:layout_constraintEnd_toEndOf="@+id/textViewSort"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewSort"
+                app:layout_constraintTop_toTopOf="@+id/filterDream"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filterDream"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/addTagButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewFilter"
+                app:layout_constraintTop_toBottomOf="@+id/sortDream"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filterFavorites"
+                    style="@style/CustomChipChoiceGeneric"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/favorites"
+                    android:textColor="@color/white"
+                    app:chipBackgroundColor="?colorPrimary" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <EditText
+                android:id="@+id/addTagFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:hint="Insert tag"
+                android:textColorHint="?colorOnSecondary"
+                android:textColor="?colorOnSecondary"
+                android:minHeight="48dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/dream_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/filterButton"
+                app:layout_constraintTop_toBottomOf="@+id/filterDream"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addTagButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                style="@style/DreamButton"
+                android:text="@string/add_tag"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="@+id/addTagFilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/addTagFilter"
+                app:layout_constraintTop_toTopOf="@+id/addTagFilter"
+                app:strokeWidth="1dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/filterButton"
+                style="@style/DreamButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/dream_list"
+                app:layout_constraintEnd_toEndOf="@+id/textViewFilter"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewFilter"
+                app:layout_constraintTop_toBottomOf="@id/filterDream"
+                app:strokeWidth="1dp" />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/new_dream"
                 android:layout_width="wrap_content"
@@ -36,8 +175,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/filterButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

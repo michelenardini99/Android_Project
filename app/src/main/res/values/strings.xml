@@ -83,4 +83,10 @@
     <string name="save_dream">Save dream</string>
     <string name="dream_Animation">Dream animation</string>
     <string name="new_dream_button">New dream button</string>
+    <string name="sortDream">Sort dream by:</string>
+    <string name="date_sort">Date</string>
+    <string name="like_sort">Like</string>
+    <string name="filterDream">Filter Dream</string>
+    <string name="filter">Filter</string>
+    <string name="add_tag">Add tag</string>
 </resources>

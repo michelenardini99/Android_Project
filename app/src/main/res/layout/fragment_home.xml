@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:textColor="?colorOnSecondary"
             android:layout_marginEnd="32dp"
             android:text="@string/notPage"
             android:textAlignment="center"
@@ -109,13 +110,13 @@
                             android:src="@drawable/emotions_really_happy" />
 
                         <TextView
-                            android:id="@+id/titlePage"
-                            style="@style/textColorHumorCard"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginRight="10dp"
+                            android:id="@+id/titlePage"
                             android:gravity="center"
+                            style="@style/SetTextColorPrimary"
                             android:text="@string/really_happy_phrase"
                             android:textSize="20sp" />
 
@@ -135,6 +136,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:text="@string/food_eaten"
+                        style="@style/SetTextColorPrimary"
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -147,6 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
+                            style="@style/SetTextColorPrimary"
                             android:layout_marginRight="16dp"
                             android:text="@string/breakfast" />
 
@@ -168,6 +171,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
+                        style="@style/SetTextColorPrimary"
                         android:orientation="horizontal">
 
                         <TextView
@@ -175,6 +179,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:layout_marginRight="16dp"
+                            android:textColor="?colorOnSecondary"
                             android:text="@string/lunch" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -201,6 +206,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
+                            style="@style/SetTextColorPrimary"
                             android:layout_marginRight="16dp"
                             android:text="@string/dinner" />
 
@@ -228,6 +234,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
+                            style="@style/SetTextColorPrimary"
                             android:layout_marginRight="16dp"
                             android:text="@string/snack" />
 
@@ -250,6 +257,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="16dp"
                         android:text="@string/activityDone"
+                        style="@style/SetTextColorPrimary"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:textSize="16sp"/>
@@ -278,6 +286,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/noteForPage"
+                        style="@style/SetTextColorPrimary"
                         android:layout_margin="20dp"
                         android:textSize="30sp"
                         android:fontFamily="@font/diary"

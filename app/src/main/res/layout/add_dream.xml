@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
 
     <TextView
         android:id="@+id/addDreamDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/night_blue"
-        android:textColor="@color/night_blue"
+        android:backgroundTint="?colorOnPrimary"
+        android:textColor="?colorPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +22,7 @@
 
     <EditText
         android:id="@+id/titleDream"
+        style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -28,7 +30,6 @@
         android:layout_marginEnd="32dp"
         android:hint="Title"
         android:textSize="30sp"
-        style="@style/TextAppearance.Material3.TitleLarge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
             android:id="@+id/addTag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/night_blue"
+            android:backgroundTint="?colorPrimary"
             android:text="Add tag"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -110,13 +111,13 @@
         android:backgroundTint="@color/white"
         android:text="@string/save_dream"
         android:textAlignment="center"
-        android:textColor="@color/night_blue"
+        android:textColor="?colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroupDream"
         app:layout_constraintVertical_bias="0.0"
-        app:strokeColor="@color/night_blue"
+        app:strokeColor="?colorPrimary"
         app:strokeWidth="1dp" />
 
     <com.airbnb.lottie.LottieAnimationView
@@ -133,7 +134,6 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/dream" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

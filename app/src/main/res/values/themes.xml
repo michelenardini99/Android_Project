@@ -58,6 +58,7 @@
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextColor">@color/blue_500</item>
         <item name="boxStrokeColor">@color/blue_500</item>
+        <item name="android:textColorHint">@color/black</item>
     </style>
 
     <style name="DreamCard">
@@ -81,6 +82,47 @@
     </style>
 
     <style name="textColorHumorCard" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ExtendedFloatingActionButton_style">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="strokeColor">?colorPrimary</item>
+    </style>
+
+    <style name="DreamButton">
+        <item name="android:background">@drawable/button_style</item>
+        <item name="android:textColor">@color/blue_500</item>
+    </style>
+
+    <style name="PopupMenu" parent="">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SetTextColorPrimary">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SetTextColorSecondary">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AddDream_style">
+        <item name="background">@color/white</item>
+    </style>
+
+    <style name="SetFoodCardBackground">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <style name="TitleLarge" parent="">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
+
+    <style name="CardTitle" parent="@style/TextAppearance.Material3.TitleSmall">
         <item name="android:textColor">@color/black</item>
     </style>
 

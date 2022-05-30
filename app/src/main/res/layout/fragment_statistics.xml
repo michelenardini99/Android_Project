@@ -31,15 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/white"
+            style="@style/ExtendedFloatingActionButton_style"
             android:text="@string/select_data_fro_chart"
             android:textAlignment="center"
-            android:textColor="@color/blue_500"
+            app:popupTheme="@style/PopupMenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include"
-            app:strokeColor="@color/blue_500"
             app:strokeWidth="1dp" />
 
         <com.github.mikephil.charting.charts.PieChart
@@ -89,8 +88,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/val_4"
-                android:textColor="@color/black" />
+                style="@style/SetTextColorPrimary"
+                android:text="@string/val_4" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -100,8 +99,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/val_3"
-                android:textColor="@color/black" />
+                style="@style/SetTextColorPrimary"
+                android:text="@string/val_3" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -111,8 +110,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/val_2"
-                android:textColor="@color/black" />
+                style="@style/SetTextColorPrimary"
+                android:text="@string/val_2" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -122,8 +121,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/val_1"
-                android:textColor="@color/black" />
+                style="@style/SetTextColorPrimary"
+                android:text="@string/val_1"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -133,8 +132,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/val_0"
-                android:textColor="@color/black" />
+                style="@style/SetTextColorPrimary"
+                android:text="@string/val_0" />
 
 
         </LinearLayout>

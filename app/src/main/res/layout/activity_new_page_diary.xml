@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="?colorOnPrimary"
     tools:context=".NewPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +23,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBarPage"
                 android:layout_width="match_parent"
-                android:background="@color/blue_500"
+                android:background="?colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/top_app_bar"
@@ -55,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
+            android:backgroundTint="?colorOnPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +72,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextAppearance.Material3.TitleSmall"
+                    style="@style/CardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/feel"
@@ -164,6 +166,10 @@
             android:id="@+id/activityCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.Material3.CardView.Outlined"
+            app:strokeColor="@color/light_gray"
+            app:strokeWidth="1dp"
+            android:backgroundTint="?colorOnPrimary"
             android:layout_marginTop="16dp"
             android:layout_margin="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +183,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextAppearance.Material3.TitleSmall"
+                    style="@style/CardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/activity"
@@ -276,6 +282,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
+            style="@style/Widget.Material3.CardView.Outlined"
+            android:backgroundTint="?colorOnPrimary"
+            app:strokeColor="@color/light_gray"
+            app:strokeWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -289,7 +299,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/TextAppearance.Material3.TitleSmall"
+                    style="@style/CardTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/eat"
@@ -393,6 +403,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/noteEditText"
                 android:layout_width="match_parent"
+                android:textColor="?colorOnSecondary"
                 android:layout_height="wrap_content"
                 android:textCursorDrawable="@drawable/color_cursor" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -407,7 +418,7 @@
             app:icon="@drawable/ic_camera"
             app:iconTint="@color/blue_500"
             app:strokeWidth="1dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?colorOnPrimary"
             android:textColor="@color/blue_500"
             app:strokeColor="@color/blue_500"
             android:layout_marginStart="32dp"

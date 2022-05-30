@@ -15,4 +15,7 @@ public interface DreamTagDao {
     @Query("SELECT * FROM dreamtag WHERE dreamId LIKE :dreamId")
     List<DreamTag> getDreamTag(int dreamId);
 
+    @Query("SELECT * FROM dreamtag WHERE dreamId LIKE :dreamId AND tagName LIKE :tagName")
+    List<DreamTag> getDreamFilterByTag(int dreamId, String tagName);
+
 }

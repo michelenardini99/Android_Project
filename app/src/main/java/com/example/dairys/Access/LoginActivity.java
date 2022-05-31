@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Query;
 import androidx.room.Room;
 
 import com.example.dairys.Database.AppDatabase;
@@ -34,8 +35,6 @@ public class LoginActivity extends AppCompatActivity{
         textInputLayoutEmail = findViewById(R.id.emailLogin);
 
         db = AppDatabase.getInstance(LoginActivity.this);
-
-        db.userDao().setAllNotLogged();
     }
 
     public void goToRegistration(View view){
@@ -52,6 +51,10 @@ public class LoginActivity extends AppCompatActivity{
                 && Access.isEmailCorrect(email, textInputLayoutEmail)){
             checkLogin = db.userDao().login(email, password);
             if(!checkLogin.isEmpty()){
+                if(db.userDao().isUserLogged(checkLogin.get(0).getId()).isEmpty()){
+                    db.userDao().setAllNotLogged();
+                    db.userDao().updateLogged(checkLogin.get(0).getUsername());
+                }
                 db.userDao().updateLogged(checkLogin.get(0).getUsername());
                 goToHome(checkLogin.get(0).getUsername());
             }else{

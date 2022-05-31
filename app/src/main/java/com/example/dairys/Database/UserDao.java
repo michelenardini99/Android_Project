@@ -22,6 +22,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE is_logged LIKE 1")
     List<User> userLogged();
 
+    @Query("SELECT * FROM user WHERE is_logged LIKE 1 AND id LIKE :id")
+    List<User> isUserLogged(int id);
+
     @Query("SELECT * FROM user WHERE id LIKE :idUser")
     List<User> userFromId(int idUser);
 

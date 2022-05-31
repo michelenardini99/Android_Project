@@ -107,6 +107,7 @@ public class FoodActivity extends AppCompatActivity {
                 saveAndReturn();
                 break;
         }
+        finish();
         return true;
     }
 

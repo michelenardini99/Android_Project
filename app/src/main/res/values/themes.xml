@@ -91,6 +91,22 @@
         <item name="strokeColor">?colorPrimary</item>
     </style>
 
+    <style name="SplashImage">
+        <item name="android:src">@drawable/icon</item>
+    </style>
+
+    <style name="Style_babyDoll">
+        <item name="fontFamily">@font/baby_doll</item>
+    </style>
+
+    <style name="Style_dudu">
+        <item name="fontFamily">@font/duducalligraphy</item>
+    </style>
+
+    <style name="Style_kg">
+        <item name="fontFamily">@font/kg_starting_over</item>
+    </style>
+
     <style name="DreamButton">
         <item name="android:background">@drawable/button_style</item>
         <item name="android:textColor">@color/blue_500</item>

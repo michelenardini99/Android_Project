@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dairys">
         <activity
@@ -35,6 +35,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Access.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

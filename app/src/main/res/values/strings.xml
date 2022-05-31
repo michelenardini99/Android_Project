@@ -89,4 +89,12 @@
     <string name="filterDream">Filter Dream</string>
     <string name="filter">Filter</string>
     <string name="add_tag">Add tag</string>
+    <string name="life_journey">Life Journey</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="note_style">Note style</string>
+    <string name="italian">Italian</string>
+    <string name="english">English</string>
+    <string name="language">Language</string>
+    <string name="gallery">"Photo gallery "</string>
+    <string name="gallery_photo">Gallery</string>
 </resources>

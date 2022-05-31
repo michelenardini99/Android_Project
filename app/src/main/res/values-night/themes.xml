@@ -95,6 +95,9 @@
         <item name="android:backgroundTint">?colorPrimary</item>
     </style>
 
+    <style name="SplashImage">
+        <item name="android:src">@drawable/icon_dark</item>
+    </style>
 
     <style name="ExtendedFloatingActionButton_style">
         <item name="backgroundTint">@color/black</item>

@@ -23,6 +23,7 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_new_page_diary.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_page.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_registration.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_splash.xml" value="0.33" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/add_dream.xml" value="0.25" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/date_layout.xml" value="0.3921875" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/dream_card.xml" value="0.7338429464906184" />
@@ -36,11 +37,13 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_statistics.xml" value="0.33" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/header.xml" value="0.75" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/navigation_drawer.xml" value="0.4625" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/radio_language.xml" value="0.55" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/single_input_chip_layout.xml" value="0.3796875" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/menu_navigation_drawer.xml" value="0.3803418803418803" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/navigation_drawer.xml" value="0.4635416666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/navigation_drawer_menu.xml" value="0.4625" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/note_style_menu.xml" value="0.4125" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/search_menu.xml" value="0.3963541666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/statistics_menu.xml" value="0.55" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/menu/top_app_bar.xml" value="0.553125" />

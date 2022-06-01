@@ -1,6 +1,7 @@
 package com.example.dairys;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -16,6 +18,7 @@ import com.example.dairys.Database.AppDatabase;
 import com.example.dairys.Database.DreamDiary;
 import com.example.dairys.Database.DreamFavorite;
 import com.example.dairys.Database.DreamTag;
+import com.example.dairys.Fragment.SettingsFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -54,6 +57,13 @@ public class DreamDiaryAdapter extends RecyclerView.Adapter<DreamDiaryAdapter.Vi
         holder.storyDream.setText(dreamDiary.getStory());
         holder.diaryDate.setText(dreamDiary.getDateInsert());
         holder.numberLike.setText(String.valueOf(dreamDiary.getLike()));
+
+        if(SettingsFragment.readFontStyle(context) != 0){
+            Typeface typeface = ResourcesCompat.getFont(context, SettingsFragment.readFontStyle(context));
+            holder.titleStory.setTypeface(typeface);
+            holder.storyDream.setTypeface(typeface);
+            holder.diaryDate.setTypeface(typeface);
+        }
 
         List<DreamTag> dreamTags = db.dreamTagDao().getDreamTag(dreamDiary.getDreamId());
         dreamTags.forEach( dreamTag -> {

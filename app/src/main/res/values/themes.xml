@@ -18,6 +18,18 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="BackGround_TopBar">
+        <item name="android:background">@drawable/wallpaper_light</item>
+    </style>
+
+    <style name="DarkMode_style">
+        <item name="android:src">@drawable/ic_dark_mode_dark</item>
+    </style>
+
+    <style name="Arrow_style">
+        <item name="android:src">@drawable/ic_down_arrow_light</item>
+    </style>
+
     <style name="CustomChipChoiceReallyHappy" parent="">
         <item name="chipBackgroundColor">@color/background_color_really_happy</item>
         <item name="android:textColor">@color/text_color_chip_state_list</item>

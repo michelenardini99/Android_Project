@@ -2,6 +2,7 @@ package com.example.dairys.Fragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,6 +114,11 @@ public class DreamDiaryFragment extends Fragment {
                 EditText title = mView.findViewById(R.id.titleDream);
                 EditText description = mView.findViewById(R.id.descriptionDream);
                 EditText tag = mView.findViewById(R.id.tagDream);
+                if(SettingsFragment.readFontStyle(getContext()) != 0){
+                    Typeface typeface = ResourcesCompat.getFont(getContext(), SettingsFragment.readFontStyle(getContext()));
+                    title.setTypeface(typeface);
+                    description.setTypeface(typeface);
+                }
                 ChipGroup chipGroupDream = mView.findViewById(R.id.chipGroupDream);
                 AppCompatButton addTag = mView.findViewById(R.id.addTag);
                 ExtendedFloatingActionButton saveDream = mView.findViewById(R.id.saveDream);

@@ -301,7 +301,7 @@ public class StatisticsFragment extends Fragment {
     private int[] setColor(){
         switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
             case Configuration.UI_MODE_NIGHT_YES:
-                return ColorTemplate.MATERIAL_COLORS;
+                return ColorTemplate.COLORFUL_COLORS;
             case Configuration.UI_MODE_NIGHT_NO:
                 return ColorTemplate.VORDIPLOM_COLORS;
         }

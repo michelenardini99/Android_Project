@@ -2,14 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/defaultFont"
+        android:title="@string/defaultFont"/>
     <item android:id="@+id/baby_dolf"
-        android:title="@string/life_journey"
-        app:itemTextAppearance="@style/Style_babyDoll"/>
+        android:title="@string/baby_doll"/>
     <item android:id="@+id/dudu"
-        android:title="@string/life_journey"
-        app:itemTextAppearance="@style/Style_dudu"/>
+        android:title="@string/dudu"/>
     <item android:id="@+id/kg"
-        android:title="@string/life_journey"
-        app:itemTextAppearance="@style/Style_kg"/>
+        android:title="@string/kg"/>
 
 </menu>

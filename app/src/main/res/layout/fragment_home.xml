@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/BackGround_TopBar"
     tools:context=".Fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,34 +25,35 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <include
+            android:id="@+id/include"
             layout="@layout/date_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toTopOf="@+id/pageCard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.53999996" />
 
         <TextView
             android:id="@+id/notPage"
             style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:textColor="?colorOnSecondary"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
             android:text="@string/notPage"
             android:textAlignment="center"
+            android:textColor="?colorOnSecondary"
             android:textSize="30sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/addButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26999998" />
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/emptyAnimation"
@@ -78,7 +80,7 @@
             app:layout_constraintBottom_toTopOf="@id/addButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateConstraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/include">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"

@@ -8,6 +8,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            style="@style/BackGround_TopBar"
             android:layout_height="match_parent">
 
             <TextView
@@ -15,9 +16,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textColor="?colorOnSecondary"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="70dp"
                 android:text="@string/sortDream"
+                android:textColor="?colorOnSecondary"
                 app:layout_constraintBottom_toTopOf="@+id/textViewFilter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

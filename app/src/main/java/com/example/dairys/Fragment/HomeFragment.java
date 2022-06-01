@@ -1,6 +1,7 @@
 package com.example.dairys.Fragment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,6 +97,12 @@ public class HomeFragment extends Fragment {
         listDinner = getView().findViewById(R.id.list_dinner);
         listSnack = getView().findViewById(R.id.list_snack);
         date = getView().findViewById(R.id.dateHome);
+
+        if(SettingsFragment.readFontStyle(getContext()) != 0){
+            Typeface typeface = ResourcesCompat.getFont(getContext(), SettingsFragment.readFontStyle(getContext()));
+            noteForPage.setTypeface(typeface);
+        }
+
         Calendar cal = Calendar.getInstance();
         setDate(cal);
         getView().findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {

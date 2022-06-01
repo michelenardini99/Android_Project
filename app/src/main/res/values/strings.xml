@@ -97,4 +97,16 @@
     <string name="language">Language</string>
     <string name="gallery">"Photo gallery "</string>
     <string name="gallery_photo">Gallery</string>
+    <string name="baby_doll">Baby doll</string>
+    <string name="dudu">Dudu</string>
+    <string name="kg">Kg</string>
+    <string name="defaultFont">Default</string>
+    <string name="logout">Logout</string>
+    <string name="chart_color">Chart color</string>
+    <string name="vordiplom">Vordiplom</string>
+    <string name="material">Material</string>
+    <string name="colorful">Colorful</string>
+    <string name="pastel">Pastel</string>
+    <string name="liberty">Liberty</string>
+    <string name="joyful">JoyFul</string>
 </resources>

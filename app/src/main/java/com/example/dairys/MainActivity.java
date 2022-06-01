@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         goToHomeFragment();
 
+        SettingsFragment.setLocale(this);
 
         setSupportActionBar(toolbar);
 

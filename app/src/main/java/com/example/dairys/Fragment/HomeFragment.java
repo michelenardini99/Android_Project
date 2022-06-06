@@ -1,6 +1,12 @@
 package com.example.dairys.Fragment;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -9,11 +15,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +41,12 @@ import com.example.dairys.Database.DiaryPage;
 import com.example.dairys.Database.Food;
 import com.example.dairys.FoodActivity;
 import com.example.dairys.FoodForPageAdapter;
+import com.example.dairys.MainActivity;
 import com.example.dairys.NewPage;
 import com.example.dairys.R;
+import com.example.dairys.ViewModel.HomeViewModel;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.text.ParseException;
@@ -46,6 +59,8 @@ import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
+    private int STORAGE_PERMISSION_CODE = 1;
+
     private ImageView imageHumor;
     private ImageView wallpaperCard;
     private MaterialTextView date;
@@ -55,10 +70,12 @@ public class HomeFragment extends Fragment {
     private RecyclerView listSnack;
     private RecyclerView listActivity;
     private MaterialCardView cardPage;
+    private FloatingActionButton editPage;
     private TextView noPage;
     private TextView titlePage;
     private TextView noteForPage;
     private AppDatabase db;
+    private HomeViewModel viewModel;
     private LottieAnimationView emptyAnimation;
 
 
@@ -84,6 +101,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        editPage = getView().findViewById(R.id.editPage);
         noteForPage = getView().findViewById(R.id.noteForPage);
         emptyAnimation = getView().findViewById(R.id.emptyAnimation);
         wallpaperCard = getView().findViewById(R.id.imagePage);
@@ -101,6 +120,11 @@ public class HomeFragment extends Fragment {
         if(SettingsFragment.readFontStyle(getContext()) != 0){
             Typeface typeface = ResourcesCompat.getFont(getContext(), SettingsFragment.readFontStyle(getContext()));
             noteForPage.setTypeface(typeface);
+        }
+
+        if (!(ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+            requestStoragePermission();
         }
 
         Calendar cal = Calendar.getInstance();
@@ -159,19 +183,61 @@ public class HomeFragment extends Fragment {
         listSnack.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         listActivity.setHasFixedSize(true);
         listActivity.setLayoutManager(new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false));
+
+        editPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NewPage.class);
+                intent.putExtra("isToEdit", true);
+                intent.putExtra("date", date.getText().toString());
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+    }
+
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Permission needed")
+                    .setMessage("This permission is needed because of this and that")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setPageCard() throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
-        Date dateToParse = format.parse(date.getText().toString());
-        Calendar c = Calendar.getInstance();
-        c.setTime(dateToParse);
-        String dateToSend = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date(sdf.parse(dateToSend).getTime());
-        long l = date.getTime();
-        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(l);
+        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(viewModel.setDateCard());
         if(page.size() != 0){
             int id = page.get(0).getDiaryId();
             setHumorEmoji(page.get(0).getHumor());
@@ -254,16 +320,15 @@ public class HomeFragment extends Fragment {
                 foodList.add(db.foodDao().getFoodFromId(p.foodId).get(0));
             });
             recyclerView.setAdapter(new FoodForPageAdapter(foodList, getActivity()));
+        }else{
+            recyclerView.setAdapter(new FoodForPageAdapter(new ArrayList<>(), getActivity()));
         }
     }
 
 
     private void setDate(Calendar cal){
-        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-        String month_name = month_date.format(cal.getTime());
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int year = cal.get(Calendar.YEAR);
-        date.setText(day + " " + month_name + " " + year);
+        viewModel.setDate(cal);
+        date.setText(viewModel.date);
     }
 
     public void goToCreatePageDiary(){

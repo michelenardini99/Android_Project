@@ -14,7 +14,6 @@ import com.example.dairys.Database.DreamDiary;
 import com.example.dairys.Database.User;
 import com.example.dairys.MainActivity;
 import com.example.dairys.R;
-import com.example.dairys.databinding.ActivityLoginBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;

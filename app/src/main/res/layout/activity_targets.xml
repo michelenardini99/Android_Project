@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorOnPrimary"
+    tools:context=".TargetsActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Base_ToolbarStyle"
+        app:title="@string/targets"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        style="@style/Widget.Material3.CardView.Outlined"
+        app:cardBackgroundColor="?colorOnPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/light_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/targets_completed"
+                style="@style/TitleLarge"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/targetComplete"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/targetComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0/1"
+                style="@style/TitleLarge"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/progressBarYear"
+                app:layout_constraintStart_toStartOf="@+id/progressBarYear"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <ProgressBar
+                android:id="@+id/progressBarYear"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView"
+                tools:progress="60" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        style="@style/Widget.Material3.CardView.Outlined"
+        app:cardBackgroundColor="?colorOnPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2"
+        app:layout_constraintVertical_bias="1.0"
+        app:strokeColor="@color/light_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progressBarMonth"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:progress="60" />
+
+            <TextView
+                android:id="@+id/monthly_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/goal_monthly"
+                style="@style/TitleLarge"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@+id/progressBarMonth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/targetsResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3/10"
+                style="@style/TitleLarge"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBarMonth"
+                app:layout_constraintEnd_toEndOf="@+id/progressBarMonth"
+                app:layout_constraintStart_toStartOf="@+id/progressBarMonth"
+                app:layout_constraintTop_toTopOf="@+id/progressBarMonth" />
+
+            <TextView
+                android:id="@+id/targetProgress"
+                style="@style/TitleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:lineSpacingExtra="10sp"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/progressBarMonth"
+                app:layout_constraintStart_toStartOf="@+id/progressBarMonth" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

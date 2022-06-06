@@ -18,4 +18,8 @@ public interface DiaryFoodDao {
     @Query("SELECT * FROM diaryfood WHERE diaryId LIKE :pageId")
     List<DiaryFood> getFromPageIdAll(int pageId);
 
+    @Query("DELETE FROM diaryfood WHERE diaryId LIKE :id")
+    void deleteFoods(int id);
+
+
 }

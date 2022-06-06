@@ -10,13 +10,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Food.class, DiaryPage.class, Activity.class, DiaryFood.class, DiaryActivity.class, DreamDiary.class, DreamFavorite.class, DreamTag.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Food.class, DiaryPage.class, Activity.class, DiaryFood.class, DiaryActivity.class, DreamDiary.class, DreamFavorite.class, DreamTag.class, Target.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract UserDao userDao();
     public abstract FoodDao foodDao();
+    public abstract TargetDao targetDao();
     public abstract ActivityDao activityDao();
     public abstract DiaryPageDao diaryPageDao();
     public abstract DiaryFoodDao diaryFoodDao();

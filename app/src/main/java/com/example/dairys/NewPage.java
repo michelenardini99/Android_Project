@@ -13,17 +13,15 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import java.sql.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.dairys.Access.LoginActivity;
 import com.example.dairys.Database.AppDatabase;
 import com.example.dairys.Database.DiaryActivity;
 import com.example.dairys.Database.DiaryFood;
@@ -35,7 +33,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +40,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class NewPage extends AppCompatActivity {
@@ -55,6 +51,7 @@ public class NewPage extends AppCompatActivity {
     String humorSelected;
     Uri selectedImage;
     List<String> activity = new ArrayList<>();
+    private int idTemp = 0;
 
     private EditText dataPicker;
     private ExtendedFloatingActionButton camera;
@@ -65,16 +62,22 @@ public class NewPage extends AppCompatActivity {
     private Chip snack;
     private ChipGroup humorGroup;
     private ChipGroup activityGroup;
+    private ChipGroup eatGroup;
     private List<Chip> humorChip;
     private List<Chip> activityChip;
     private TextInputEditText noteEditText;
     private MaterialToolbar topAppBar;
+    private AppDatabase db;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_page_diary);
+
+        db = AppDatabase.getInstance(NewPage.this);
+
 
         selectedImage = null;
         topAppBar = findViewById(R.id.topAppBarPage);
@@ -86,6 +89,7 @@ public class NewPage extends AppCompatActivity {
         lunch = findViewById(R.id.lunch);
         dinner = findViewById(R.id.dinner);
         snack = findViewById(R.id.snack);
+        eatGroup = findViewById(R.id.eatGroup);
         humorGroup = findViewById(R.id.humorGroup);
         activityGroup = findViewById(R.id.activityGroup);
         humorChip = Arrays.asList(findViewById(R.id.reallyHappy),
@@ -103,7 +107,16 @@ public class NewPage extends AppCompatActivity {
 
         setSupportActionBar(topAppBar);
 
-        setDataPicker(null);
+        Intent intent = getIntent();
+        if (intent.hasExtra("isToEdit")){
+            try {
+                editPage();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            setDataPicker(null);
+        }
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +156,111 @@ public class NewPage extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void editPage() throws ParseException {
+        List<DiaryPage> page = getPageToEdit();
+        idTemp = page.get(0).getDiaryId();
+        setHumorChipSelected(page.get(0).getHumor());
+        db.diaryActivityDao().getFromPageId(page.get(0).getDiaryId()).forEach(a -> {
+            setActivityChipSelected(db.activityDao().getActivityFromId(a.getActivityId()).get(0));
+        });
+        setFoodSelected(page.get(0).getDiaryId());
+        if(page.get(0).getNote() != null){
+            noteEditText.setText(page.get(0).getNote());
+        }
+        if(page.get(0).getPhoto() != null){
+            imagePhoto.setImageURI(Uri.parse(page.get(0).getPhoto() ));
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setFoodSelected(int diaryId) {
+        Map<String, List<Food>> foods = new HashMap<>();
+        List<String> category = Arrays.asList("Breakfast", "Dinner", "Lunch", "Snack");
+        category.forEach(c -> {
+            List<Food> temp = new ArrayList<>();
+            if(!db.diaryFoodDao().getFromPageId(diaryId, c).isEmpty()){
+                checkCategoryFood(c);
+                db.diaryFoodDao().getFromPageId(diaryId, c).forEach( f -> {
+                    temp.add(db.foodDao().getFoodFromId(f.foodId).get(0));
+                });
+                foods.put(c, temp);
+            }
+        });
+
+        selectedFood = foods;
+    }
+
+    private void checkCategoryFood(String c) {
+        switch (c){
+            case "Breakfast":
+                eatGroup.check(R.id.breakfast);
+                break;
+            case "Lunch":
+                eatGroup.check(R.id.lunch);
+                break;
+            case "Dinner":
+                eatGroup.check(R.id.dinner);
+                break;
+            case "Snack":
+                eatGroup.check(R.id.snack);
+                break;
+        }
+    }
+
+    private void setActivityChipSelected(com.example.dairys.Database.Activity activity) {
+        switch (activity.getActivityName()){
+            case "Sport":
+                activityGroup.check(R.id.sport);
+                break;
+            case "Walk":
+                activityGroup.check(R.id.walk);
+                break;
+            case "Excursion":
+                activityGroup.check(R.id.excursion);
+                break;
+            case "Immersion":
+                activityGroup.check(R.id.immersion);
+                break;
+            case "Cycling":
+                activityGroup.check(R.id.cycling);
+                break;
+        }
+    }
+
+    private void setHumorChipSelected(String humor) {
+        switch (humor){
+            case "Really happy":
+                humorGroup.check(R.id.reallyHappy);
+                break;
+            case "Happy":
+                humorGroup.check(R.id.happy);
+                break;
+            case "So so":
+                humorGroup.check(R.id.so_so);
+                break;
+            case "Bad":
+                humorGroup.check(R.id.bad);
+                break;
+            case "Terrible":
+                humorGroup.check(R.id.terrible);
+                break;
+        }
+    }
+
+    private List<DiaryPage> getPageToEdit() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
+        java.util.Date dateToParse = format.parse(getIntent().getExtras().getString("date"));
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateToParse);
+        String dateToSend = c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR);
+        setDataPicker(dateToSend);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date date = new java.util.Date(sdf.parse(dateToSend).getTime());
+        long l = date.getTime();
+        return db.diaryPageDao().getDiaryPageForDate(l);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -154,42 +272,50 @@ public class NewPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.savePage:
-                setHumor();
-                setActivity();
-                AppDatabase db = AppDatabase.getInstance(NewPage.this);
-                int diaryId = db.diaryPageDao().getLastInsert().isEmpty() ? 0 : db.diaryPageDao().getLastInsert().get(0).getDiaryId();
-                diaryId++;
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = null;
-                try {
-                    date = new Date(sdf.parse(dataPicker.getText().toString()).getTime());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                db.diaryPageDao().insertAll(
-                        new DiaryPage(diaryId,
-                                date,
-                                noteEditText.getText().toString(),
-                                selectedImage == null ? null : selectedImage.toString(),
-                                humorSelected
-                        )
-                );
-                int finalDiaryId = diaryId;
-                for(String category: selectedFood.keySet()){
-                    for(Food food: selectedFood.get(category)){
-                        db.diaryFoodDao().insertAll(new DiaryFood(finalDiaryId, food.getFoodId(), category));
+        if(humorIsSelected()) {
+            switch (item.getItemId()) {
+                case R.id.savePage:
+                    if (idTemp != 0) {
+                        db.diaryPageDao().deletePage(idTemp);
+                        db.diaryFoodDao().deleteFoods(idTemp);
+                        db.diaryActivityDao().deleteActivity(idTemp);
                     }
-                }
-                activity.forEach( a -> {
-                    db.diaryActivityDao().insertAll(new DiaryActivity(finalDiaryId, db.activityDao().getActivityFromName(a).get(0).getActivityId()));
-                });
-                break;
+                    setHumor();
+                    setActivity();
+                    int diaryId = db.diaryPageDao().getLastInsert().isEmpty() ? 0 : db.diaryPageDao().getLastInsert().get(0).getDiaryId();
+                    diaryId++;
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = null;
+                    try {
+                        date = new Date(sdf.parse(dataPicker.getText().toString()).getTime());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    db.diaryPageDao().insertAll(
+                            new DiaryPage(diaryId,
+                                    date,
+                                    noteEditText.getText().toString(),
+                                    selectedImage == null ? null : selectedImage.toString(),
+                                    humorSelected
+                            )
+                    );
+                    int finalDiaryId = diaryId;
+                    for (String category : selectedFood.keySet()) {
+                        for (Food food : selectedFood.get(category)) {
+                            db.diaryFoodDao().insertAll(new DiaryFood(finalDiaryId, food.getFoodId(), category));
+                        }
+                    }
+                    activity.forEach(a -> {
+                        db.diaryActivityDao().insertAll(new DiaryActivity(finalDiaryId, db.activityDao().getActivityFromName(a).get(0).getActivityId()));
+                    });
+                    break;
+            }
+            Intent intent = new Intent(NewPage.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(this, "At least select your mood\n", Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(NewPage.this, MainActivity.class);
-        startActivity(intent);
-        finish();
         return true;
     }
 
@@ -249,6 +375,10 @@ public class NewPage extends AppCompatActivity {
             Chip chip = humorGroup.findViewById(id);
             humorSelected = chip.getText().toString();
         }
+    }
+
+    private boolean humorIsSelected(){
+        return humorGroup.getCheckedChipIds().size() != 0;
     }
 
     private void setActivity(){

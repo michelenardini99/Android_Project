@@ -106,7 +106,6 @@ public class DreamDiaryAdapter extends RecyclerView.Adapter<DreamDiaryAdapter.Vi
                     holder.likeAnimation.setMinAndMaxFrame(25, 81);
                     holder.isLiked = true;
                 }else{
-                    like--;
                     holder.likeAnimation.setMinAndMaxFrame(106, 148);
                     holder.isLiked = false;
                 }

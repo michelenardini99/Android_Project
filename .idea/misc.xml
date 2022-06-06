@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/bottom_icon_color.xml" value="0.395" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/button_style.xml" value="0.5075" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/button_style_dark.xml" value="0.5075" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/circle.xml" value="0.1355" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/date_round_shape.xml" value="0.4965" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.3125" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/drawable/ic_baseline_diary_24.xml" value="0.3125" />
@@ -24,16 +25,19 @@
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_page.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_registration.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/activity_targets.xml" value="0.33" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/add_dream.xml" value="0.25" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/chart_color.xml" value="0.55" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/chart_color_menu.xml" value="0.32264957264957267" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/date_layout.xml" value="0.3921875" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/dream_card.xml" value="0.7338429464906184" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/first_widget.xml" value="0.3109375" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_card.xml" value="0.4547008547008547" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_page_layout.xml" value="0.5" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/food_selected.xml" value="0.553125" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_dream_diary.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_food.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_home.xml" value="0.321875" />
+        <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_home.xml" value="0.48686030428769017" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_settings.xml" value="0.4242709313264346" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/fragment_statistics.xml" value="0.33" />
         <entry key="..\:/Users/Utente/Desktop/Android_Project/app/src/main/res/layout/header.xml" value="0.75" />

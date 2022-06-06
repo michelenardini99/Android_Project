@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.example.dairys.Database.Food;
 import com.example.dairys.DreamDiaryAdapter;
 import com.example.dairys.NewPage;
 import com.example.dairys.R;
+import com.example.dairys.ViewModel.DreamDiaryViewModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -55,8 +57,7 @@ public class DreamDiaryFragment extends Fragment {
     private EditText tagFilter;
     private ChipGroup sortGroup;
     private ChipGroup filterGroup;
-
-    private List<DreamDiary> dreamDiaryList = new ArrayList<>();
+    DreamDiaryViewModel viewModel;
     AppDatabase db;
 
     public DreamDiaryFragment() {
@@ -81,6 +82,8 @@ public class DreamDiaryFragment extends Fragment {
 
         db = AppDatabase.getInstance(getContext());
 
+        viewModel = new ViewModelProvider(this).get(DreamDiaryViewModel.class);
+        viewModel.setDatabase(getContext());
         tagFilter = getView().findViewById(R.id.addTagFilter);
         addTag = getView().findViewById(R.id.addTagButton);
         sortGroup = getView().findViewById(R.id.sortDream);
@@ -93,11 +96,11 @@ public class DreamDiaryFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        dreamDiaryList = db.dreamDiaryDao().getAll();
+        viewModel.fillList();
 
-        setAdapterList(dreamDiaryList);
+        setAdapterList(viewModel.dreamDiaryList);
 
-        DreamDiaryAdapter dreamDiaryAdapter = new DreamDiaryAdapter(dreamDiaryList, getContext());
+        DreamDiaryAdapter dreamDiaryAdapter = new DreamDiaryAdapter(viewModel.dreamDiaryList, getContext());
         recyclerView.setAdapter(dreamDiaryAdapter);
 
         newDream.setOnClickListener(new View.OnClickListener() {
@@ -167,24 +170,7 @@ public class DreamDiaryFragment extends Fragment {
             public void onClick(View view) {
                 switch (checkCheckedChip()){
                     case "Date":
-                        List<DreamDiary> dreamDiaries = db.dreamDiaryDao().getAll();
-                        dreamDiaries.forEach(d -> {
-                            d.getDateInsert().replaceAll("/"," ");
-                        });
-                        Collections.sort(dreamDiaries, new Comparator<DreamDiary>() {
-
-                            DateFormat f = new SimpleDateFormat("dd MMM yyyy");
-                            @Override
-                            public int compare(DreamDiary dreamDiary, DreamDiary t1) {
-                                try {
-                                    return f.parse(dreamDiary.getDateInsert()).compareTo(f.parse(t1.getDateInsert()));
-                                } catch (ParseException e) {
-                                    throw new IllegalArgumentException(e);
-                                }
-                            }
-                        });
-                        Collections.reverse(dreamDiaries);
-                        filterList(dreamDiaries);
+                        filterList(viewModel.sortDate());
                         break;
                     case "Like":
                         filterList(db.dreamDiaryDao().orderByLike());
@@ -213,30 +199,22 @@ public class DreamDiaryFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void filterList(List<DreamDiary> dreamDiaryList){
+        viewModel.dreamDiaryList = dreamDiaryList;
         List<Integer> ids = filterGroup.getCheckedChipIds();
-        List<DreamDiary> dreamDiariesNotSelected = new ArrayList<>();
         for (Integer id:ids){
             Chip chip = filterGroup.findViewById(id);
             switch (chip.getText().toString()){
                 case "Favorites":
-                    dreamDiaryList.forEach(d -> {
-                        if(db.dreamFavoriteDao().getIfIsFavorite(d.getDreamId(), db.userDao().userLogged().get(0).getId()).isEmpty()){
-                            dreamDiariesNotSelected.add(d);
-                        }
-                    });
+                    viewModel.dreamDiariesNotSelected.addAll(viewModel.filterListFav());
                     break;
                 default:
-                    dreamDiaryList.forEach(d -> {
-                        if(db.dreamTagDao().getDreamFilterByTag(d.getDreamId(), chip.getText().toString()).isEmpty()){
-                            dreamDiariesNotSelected.add(d);
-                        }
-                    });
+                    viewModel.dreamDiariesNotSelected.addAll(viewModel.filterList(chip.getText().toString()));
                     break;
             }
-            dreamDiaryList.removeAll(dreamDiariesNotSelected);
-            dreamDiariesNotSelected.clear();
+            viewModel.removeFromList();
+            viewModel.clearListNotSelected();
         }
-        setAdapterList(dreamDiaryList);
+        setAdapterList(viewModel.dreamDiaryList);
     }
 
     private void setDataPicker(TextView dataPicker) {

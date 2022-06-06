@@ -13,10 +13,10 @@
     <string name="prompt_password" translatable="false">Password</string>
     <string name="action_sign_in" translatable="false">Sign in or register</string>
     <string name="action_sign_in_short" translatable="false">Sign in</string>
-    <string name="welcome" translatable="false">"Welcome !"</string>
-    <string name="invalid_username" translatable="false">Not a valid username</string>
-    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
-    <string name="login_failed" translatable="false">"Login failed"</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
     <string name="your_email">Your email</string>
     <string name="your_password">Your password</string>
     <string name="login" translatable="false">Login</string>
@@ -35,7 +35,7 @@
     <string name="feel">"How do you feel? "</string>
     <string name="select_date">Select date</string>
     <string name="activity">Activities done?</string>
-    <string name="sport">Sport</string>
+    <string name="sport" translatable="false">Sport</string>
     <string name="walk">Walk</string>
     <string name="excursion">Excursion</string>
     <string name="immersion">Immersion</string>
@@ -46,7 +46,7 @@
     <string name="dinner">Dinner</string>
     <string name="snack">Snack</string>
     <string name="note">Note</string>
-    <string name="camera">Camera</string>
+    <string name="camera" translatable="false">Camera</string>
     <string name="pick_photo">Pick photo</string>
     <string name="new_page_title">New Page</string>
     <string name="save">Save</string>
@@ -72,41 +72,54 @@
     <string name="select_data_fro_chart">Select data</string>
     <string name="humor">Humor</string>
     <string name="food">Food</string>
-    <string name="activityStatistic">Activity</string>
-    <string name="val_1"><![CDATA[-> 1]]></string>
-    <string name="val_2"><![CDATA[-> 2]]></string>
-    <string name="val_4"><![CDATA[-> 4]]></string>
-    <string name="val_3"><![CDATA[-> 3]]></string>
-    <string name="val_0"><![CDATA[-> 0]]></string>
+    <string name="activityStatistic" translatable="false">Activity</string>
+    <string name="val_1" translatable="false"><![CDATA[-> 1]]></string>
+    <string name="val_2" translatable="false"><![CDATA[-> 2]]></string>
+    <string name="val_4" translatable="false"><![CDATA[-> 4]]></string>
+    <string name="val_3" translatable="false"><![CDATA[-> 3]]></string>
+    <string name="val_0" translatable="false"><![CDATA[-> 0]]></string>
     <string name="favorites">Favorites</string>
     <string name="like">Like</string>
     <string name="save_dream">Save dream</string>
     <string name="dream_Animation">Dream animation</string>
-    <string name="new_dream_button">New dream button</string>
+    <string name="new_dream_button" translatable="false">New dream button</string>
     <string name="sortDream">Sort dream by:</string>
     <string name="date_sort">Date</string>
     <string name="like_sort">Like</string>
     <string name="filterDream">Filter Dream</string>
     <string name="filter">Filter</string>
     <string name="add_tag">Add tag</string>
-    <string name="life_journey">Life Journey</string>
-    <string name="dark_mode">Dark mode</string>
-    <string name="note_style">Note style</string>
+    <string name="life_journey" translatable="false">Life Journey</string>
+    <string name="dark_mode" translatable="false">Dark mode</string>
+    <string name="note_style" translatable="false">Note style</string>
     <string name="italian">Italian</string>
     <string name="english">English</string>
     <string name="language">Language</string>
     <string name="gallery">"Photo gallery "</string>
     <string name="gallery_photo">Gallery</string>
-    <string name="baby_doll">Baby doll</string>
-    <string name="dudu">Dudu</string>
-    <string name="kg">Kg</string>
-    <string name="defaultFont">Default</string>
-    <string name="logout">Logout</string>
+    <string name="baby_doll" translatable="false">Baby doll</string>
+    <string name="dudu" translatable="false">Dudu</string>
+    <string name="kg" translatable="false">Kg</string>
+    <string name="defaultFont" translatable="false">Default</string>
+    <string name="logout" translatable="false">Logout</string>
     <string name="chart_color">Chart color</string>
-    <string name="vordiplom">Vordiplom</string>
-    <string name="material">Material</string>
-    <string name="colorful">Colorful</string>
-    <string name="pastel">Pastel</string>
-    <string name="liberty">Liberty</string>
-    <string name="joyful">JoyFul</string>
+    <string name="vordiplom" translatable="false">Vordiplom</string>
+    <string name="material" translatable="false">Material</string>
+    <string name="colorful" translatable="false">Colorful</string>
+    <string name="pastel" translatable="false">Pastel</string>
+    <string name="liberty" translatable="false">Liberty</string>
+    <string name="joyful" translatable="false">JoyFul</string>
+    <string name="share">Share</string>
+    <string name="contact">Contact us</string>
+    <string name="wallpaper_drawer" translatable="false">Wallpaper drawer</string>
+    <string name="appwidget_text" translatable="false">EXAMPLE</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="app_widget_description" translatable="false">This is an app widget description</string>
+    <string name="widget_text" translatable="false">How was your day?</string>
+    <string name="targets">Targets</string>
+    <string name="goal_monthly">"Your monthly goal "</string>
+    <string name="targets_completed">"Targets completed this year: "</string>
+    <string name="other_settings">Other settings</string>
+    <string name="profile">Profile</string>
+    <string name="restart">"Restart the app to make the changes "</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.dairys.Database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -24,5 +25,8 @@ public interface DiaryPageDao {
 
     @Query("SELECT * FROM diarypage WHERE date BETWEEN :dateFrom AND :dateTo ORDER BY date ASC")
     List<DiaryPage> getDiaryPageBetweenDate(long dateFrom, long dateTo);
+
+    @Query("DELETE FROM diarypage WHERE diaryId LIKE :id")
+    void deletePage(int id);
 
 }

@@ -27,6 +27,10 @@
         <item name="android:src">@drawable/ic_down_arrow_dark</item>
     </style>
 
+    <style name="IconLogin_style">
+        <item name="srcCompat">@drawable/icon_dark</item>
+    </style>
+
     <style name="CustomChipChoiceReallyHappy" parent="">
         <item name="chipBackgroundColor">@color/background_color_really_happy</item>
         <item name="android:textColor">@color/text_color_chip_state_list</item>
@@ -105,6 +109,10 @@
 
     <style name="SetFoodCardBackground">
         <item name="android:backgroundTint">?colorPrimary</item>
+    </style>
+
+    <style name="TargetCardStyle" parent="Widget.Material3.CardView.Outlined">
+        <item name="background">?colorPrimary</item>
     </style>
 
     <style name="SplashImage">

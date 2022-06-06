@@ -4,28 +4,38 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:title="Dream board"
-            android:id="@+id/dream_board"
-            android:icon="@drawable/ic_dream_board"
+            android:title="@string/targets"
+            android:id="@+id/targets"
+            android:icon="@drawable/ic_targets"
             />
 
         <item
-            android:title="Favorites"
-            android:id="@+id/favorites"
-            android:icon="@drawable/ic_favorites"
+            android:title="@string/wallpaper_drawer"
+            android:id="@+id/wallpaper_drawer"
+            android:icon="@drawable/ic_wallpaper_drawer"
             />
 
     </group>
 
-    <item android:title="Other settings">
+    <item android:title="@string/other_settings">
 
         <menu>
 
             <item
-                android:title="Profile"
+                android:title="@string/profile"
                 android:id="@+id/profile"
                 android:icon="@drawable/ic_profile"
                 />
+
+            <item
+                android:title="@string/share"
+                android:id="@+id/share"
+                android:icon="@drawable/ic_share"/>
+
+            <item
+                android:title="@string/contact"
+                android:id="@+id/contact_us"
+                android:icon="@drawable/ic_contact_us"/>
 
         </menu>
 

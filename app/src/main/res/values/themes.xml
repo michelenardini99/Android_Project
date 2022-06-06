@@ -30,6 +30,10 @@
         <item name="android:src">@drawable/ic_down_arrow_light</item>
     </style>
 
+    <style name="IconLogin_style">
+        <item name="srcCompat">@drawable/icon</item>
+    </style>
+
     <style name="CustomChipChoiceReallyHappy" parent="">
         <item name="chipBackgroundColor">@color/background_color_really_happy</item>
         <item name="android:textColor">@color/text_color_chip_state_list</item>
@@ -59,7 +63,7 @@
         <item name="chipBackgroundColor">@color/background_color_generic</item>
         <item name="android:textColor">@color/text_color_chip_state_list</item>
     </style>
-    
+
     <style name="FullscreenDialogTheme" parent="Theme.AppCompat.Light.DialogWhenLarge">
         <item name="android:statusBarColor">@color/blue_500</item>
         <item name="windowNoTitle">true</item>
@@ -152,6 +156,25 @@
 
     <style name="CardTitle" parent="@style/TextAppearance.Material3.TitleSmall">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TargetCardStyle" parent="Widget.Material3.CardView.Outlined">
+        <item name="background">@color/white</item>
+    </style>
+
+    <style name="Theme.Dairys.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.Dairys.AppWidgetContainer" parent="Theme.Dairys.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
     </style>
 
 </resources>

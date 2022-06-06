@@ -36,11 +36,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.dairys.Access.LoginActivity;
 import com.example.dairys.Database.AppDatabase;
 import com.example.dairys.R;
+import com.example.dairys.Fragment.StatisticsFragment;
+import com.google.gson.Gson;
 
 import java.util.Locale;
 
@@ -50,6 +53,7 @@ public class SettingsFragment extends Fragment {
     ImageView buttonStyle;
     TextView fontStyleToModify;
     LinearLayout layoutLanguage;
+    LinearLayout layoutChartColor;
     AppDatabase db;
     LinearLayout layoutLogout;
 
@@ -80,6 +84,7 @@ public class SettingsFragment extends Fragment {
         fontStyleToModify = getView().findViewById(R.id.fontStyleToModify);
         layoutLanguage = getView().findViewById(R.id.layoutLanguage);
         layoutLogout = getView().findViewById(R.id.layoutLogout);
+        layoutChartColor = getView().findViewById(R.id.layoutChartColor);
 
         if(getIfIsInDarkMode(getContext())){
             darkMode.setChecked(true);
@@ -159,7 +164,7 @@ public class SettingsFragment extends Fragment {
                                 writeLanguage("en");
                                 break;
                         }
-
+                        Toast.makeText(getContext(), R.string.restart, Toast.LENGTH_SHORT).show();
                         setLocale(getContext());
                         dialog.dismiss();
                     }
@@ -175,6 +180,57 @@ public class SettingsFragment extends Fragment {
                 goToLogin();
             }
         });
+
+        layoutChartColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.chart_color);
+                dialog.show();
+
+                LinearLayout vordiplom = dialog.findViewById(R.id.vordiplom);
+                LinearLayout material = dialog.findViewById(R.id.material);
+                LinearLayout liberty = dialog.findViewById(R.id.liberty);
+                LinearLayout colorful = dialog.findViewById(R.id.colorful);
+                LinearLayout pastel = dialog.findViewById(R.id.pastel);
+                LinearLayout joyful = dialog.findViewById(R.id.joyful);
+
+                View.OnClickListener listener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()){
+                            case R.id.vordiplom:
+                                writeColorChart(StatisticsFragment.ColorChart.VORDIPLOM);
+                                break;
+                            case R.id.material:
+                                writeColorChart(StatisticsFragment.ColorChart.MATERIAL);
+                                break;
+                            case R.id.liberty:
+                                writeColorChart(StatisticsFragment.ColorChart.LIBERTY);
+                                break;
+                            case R.id.colorful:
+                                writeColorChart(StatisticsFragment.ColorChart.COLORFUL);
+                                break;
+                            case R.id.pastel:
+                                writeColorChart(StatisticsFragment.ColorChart.PASTEL);
+                                break;
+                            case R.id.joyful:
+                                writeColorChart(StatisticsFragment.ColorChart.JOYFUL);
+                                break;
+                        }
+                        dialog.dismiss();
+                    }
+                };
+
+                vordiplom.setOnClickListener(listener);
+                material.setOnClickListener(listener);
+                liberty.setOnClickListener(listener);
+                pastel.setOnClickListener(listener);
+                joyful.setOnClickListener(listener);
+                colorful.setOnClickListener(listener);
+            }
+        });
     }
 
     private void writeDarkMode(boolean isOnDarkMode){
@@ -183,6 +239,18 @@ public class SettingsFragment extends Fragment {
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
         myEdit.putBoolean("darkMode", isOnDarkMode);
+        myEdit.commit();
+    }
+
+    private void writeColorChart(StatisticsFragment.ColorChart color){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MySharedPref", MODE_PRIVATE);
+
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(color);
+
+        myEdit.putString("colorChart", json);
         myEdit.commit();
     }
 
@@ -220,6 +288,13 @@ public class SettingsFragment extends Fragment {
         SharedPreferences sh = context.getSharedPreferences("MySharedPref", MODE_PRIVATE);
 
         return sh.getString("language", context.getResources().getConfiguration().locale.getCountry());
+    }
+
+    public static StatisticsFragment.ColorChart readColor(Context context){
+        SharedPreferences sh = context.getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sh.getString("colorChart", "");
+        return gson.fromJson(json, StatisticsFragment.ColorChart.class);
     }
 
     public static void setLocale(Context context){

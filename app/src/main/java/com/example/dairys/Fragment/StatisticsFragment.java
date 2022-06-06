@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.dairys.Database.Activity;
 import com.example.dairys.Database.AppDatabase;
@@ -25,6 +27,7 @@ import com.example.dairys.Database.DiaryFood;
 import com.example.dairys.Database.DiaryPage;
 import com.example.dairys.Database.Food;
 import com.example.dairys.R;
+import com.example.dairys.ViewModel.StatisticsViewModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -57,7 +60,17 @@ public class StatisticsFragment extends Fragment {
     PieChart pieChart;
     AppDatabase db;
     MaterialTextView date;
+    StatisticsViewModel viewModel;
     ExtendedFloatingActionButton selectButton;
+
+    public static enum ColorChart{
+        MATERIAL,
+        VORDIPLOM,
+        PASTEL,
+        LIBERTY,
+        COLORFUL,
+        JOYFUL
+    }
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -81,11 +94,13 @@ public class StatisticsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
         linearLayoutLegend = getView().findViewById(R.id.linearLayoutLegenda);
         lineChart = getView().findViewById(R.id.lineChart);
         selectButton = getView().findViewById(R.id.select_data);
         pieChart = getView().findViewById(R.id.pieChart);
         date = getView().findViewById(R.id.dateHome);
+        selectButton.setText(R.string.humor);
 
         db = AppDatabase.getInstance(getContext());
 
@@ -146,6 +161,7 @@ public class StatisticsFragment extends Fragment {
                     case R.id.humorStatistics:
                         try {
                             pieChart.setVisibility(View.INVISIBLE);
+                            selectButton.setText(R.string.humor);
                             createLineChart();
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -155,6 +171,7 @@ public class StatisticsFragment extends Fragment {
                         try {
                             lineChart.setVisibility(View.INVISIBLE);
                             linearLayoutLegend.setVisibility(View.INVISIBLE);
+                            selectButton.setText(R.string.activity);
                             createPieChart("Activity");
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -164,6 +181,7 @@ public class StatisticsFragment extends Fragment {
                         try {
                             lineChart.setVisibility(View.INVISIBLE);
                             linearLayoutLegend.setVisibility(View.INVISIBLE);
+                            selectButton.setText(R.string.food);
                             createPieChart("Food");
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -179,39 +197,7 @@ public class StatisticsFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createLineChart() throws ParseException {
-        List<DiaryPage> diaryPages = getList();
-
-        ArrayList<Entry> lineEntries = new ArrayList<>();
-
-        int val = 0;
-        for (DiaryPage d : diaryPages) {
-            String day = (String) DateFormat.format("dd",   d.getDate()); // 20
-            switch (d.getHumor()) {
-                case "Really happy":
-                    val = 4;
-                    break;
-                case "Happy":
-                    val = 3;
-                    break;
-                case "So so":
-                    val = 2;
-                    break;
-                case "Bad":
-                    val = 1;
-                    break;
-                case "Terrible":
-                    val = 0;
-                    break;
-            }
-            lineEntries.add(new Entry(Integer.parseInt(day), val));
-        }
-        LineDataSet lineDataSet = new LineDataSet(lineEntries, "Humor");
-        lineDataSet.setLineWidth(2);
-        ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
-        iLineDataSets.add(lineDataSet);
-        lineDataSet.setDrawValues(false);
-
-        LineData lineData = new LineData(iLineDataSets);
+        LineData lineData = viewModel.createLineChart(getContext());
         lineData.setValueTextColor(setTextColor());
         lineChart.setData(lineData);
         lineChart.invalidate();
@@ -219,8 +205,6 @@ public class StatisticsFragment extends Fragment {
 
         lineChart.getXAxis().setTextColor(setTextColor());
         lineChart.getAxisLeft().setTextColor(setTextColor());
-
-        lineDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         lineChart.setVisibility(View.VISIBLE);
         linearLayoutLegend.setVisibility(View.VISIBLE);
@@ -239,36 +223,24 @@ public class StatisticsFragment extends Fragment {
 
 
     private void setDate(Calendar cal){
-        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
-        String month_name = month_date.format(cal.getTime());
-        int year = cal.get(Calendar.YEAR);
-        date.setText(month_name + " " + year);
+        viewModel.setDate(cal);
+        date.setText(viewModel.date);
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createPieChart(String category) throws ParseException {
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-        Map<String, Integer> list = getMapList(category);
-
-        int i = 1;
-        list.forEach((h, v) -> {
-            PieEntry pieEntry = new PieEntry(v, h);
-            pieEntries.add(pieEntry);
-        });
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Activity");
+        PieDataSet pieDataSet = viewModel.createPieChart(getContext(), category);
 
         pieDataSet.setColors(setColor());
 
-        pieChart.setCenterTextColor(setTextColor());
-        pieChart.setHoleColor(setHoleColor());
         pieDataSet.setValueLineColor(setTextColor());
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(true);
         pieData.setValueFormatter(new PercentFormatter(pieChart));
         pieData.setValueTextSize(12f);
         pieData.setValueTextColor(setTextColor());
+
 
         pieChart.setData(pieData);
         pieChart.invalidate();
@@ -279,8 +251,12 @@ public class StatisticsFragment extends Fragment {
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(setTextColor());
-        pieChart.setCenterText("Spending by " + category);
-        pieChart.setCenterTextSize(24);
+        if(category.equals("Food")){
+            pieChart.setCenterText(category + " Average kcal: " + String.valueOf(viewModel.getAverageKcal(db)));
+        }else{
+            pieChart.setCenterText(category);
+        }
+        pieChart.setCenterTextSize(20);
         pieChart.getDescription().setEnabled(false);
         pieChart.getLegend().setTextColor(setTextColor());
 
@@ -299,76 +275,23 @@ public class StatisticsFragment extends Fragment {
     }
 
     private int[] setColor(){
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                return ColorTemplate.COLORFUL_COLORS;
-            case Configuration.UI_MODE_NIGHT_NO:
-                return ColorTemplate.VORDIPLOM_COLORS;
+        if(SettingsFragment.readColor(getContext()) != null){
+            switch (SettingsFragment.readColor(getContext())) {
+                case VORDIPLOM:
+                    return ColorTemplate.VORDIPLOM_COLORS;
+                case MATERIAL:
+                    return ColorTemplate.MATERIAL_COLORS;
+                case LIBERTY:
+                    return ColorTemplate.LIBERTY_COLORS;
+                case PASTEL:
+                    return ColorTemplate.PASTEL_COLORS;
+                case COLORFUL:
+                    return ColorTemplate.COLORFUL_COLORS;
+                case JOYFUL:
+                    return ColorTemplate.JOYFUL_COLORS;
+            }
         }
-        return new int[]{0};
+        return ColorTemplate.MATERIAL_COLORS;
     }
 
-    private int setHoleColor(){
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                return Color.BLACK;
-            case Configuration.UI_MODE_NIGHT_NO:
-                return Color.WHITE;
-        }
-        return 0;
-    }
-
-    private List<DiaryPage> getList() throws ParseException {
-        Calendar cal = Calendar.getInstance();
-        String dataToFormat = cal.get(Calendar.DAY_OF_MONTH) + " " + date.getText().toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
-        Date dateFormat = new Date(sdf.parse(dataToFormat).getTime());
-        cal.setTime(dateFormat);
-        sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateFrom = new Date(sdf.parse(1+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
-        Date dateTo = new Date(sdf.parse(cal.getActualMaximum(Calendar.DAY_OF_MONTH)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
-        List<DiaryPage> diaryPageList = db.diaryPageDao().getDiaryPageBetweenDate(dateFrom.getTime(), dateTo.getTime());
-        return diaryPageList;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private Map<String, Integer> getMapList(String category) throws ParseException {
-        List<DiaryPage> diaryPages = getList();
-
-        Map<String, Integer> list = new HashMap<>();
-
-        switch(category){
-            case "Activity":
-                diaryPages.forEach( d -> {
-                    List<DiaryActivity> activityList = db.diaryActivityDao().getFromPageId(d.getDiaryId());
-                    activityList.forEach( a -> {
-                        List<Activity> ac = db.activityDao().getActivityFromId(a.getActivityId());
-                        if(!list.containsKey(ac.get(0).getActivityName())){
-                            list.put(ac.get(0).getActivityName(), 1);
-                        }else{
-                            int count = list.get(ac.get(0).getActivityName());
-                            list.remove(ac.get(0).getActivityName());
-                            list.put(ac.get(0).getActivityName(), ++count);
-                        }
-                    });
-                });
-                break;
-            case "Food":
-                diaryPages.forEach( d -> {
-                    List<DiaryFood> foodList = db.diaryFoodDao().getFromPageIdAll(d.getDiaryId());
-                    foodList.forEach( a -> {
-                        List<Food> ac = db.foodDao().getFoodFromId(a.getFoodId());
-                        if(!list.containsKey(ac.get(0).getFoodName())){
-                            list.put(ac.get(0).getFoodName(), 1);
-                        }else{
-                            int count = list.get(ac.get(0).getFoodName());
-                            list.remove(ac.get(0).getFoodName());
-                            list.put(ac.get(0).getFoodName(), ++count);
-                        }
-                    });
-                });
-                break;
-        }
-        return list;
-    }
 }

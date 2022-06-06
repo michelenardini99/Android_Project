@@ -127,6 +127,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 style="@style/DreamButton"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
                 android:text="@string/add_tag"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/addTagFilter"

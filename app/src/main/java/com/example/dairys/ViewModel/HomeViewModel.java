@@ -11,6 +11,7 @@ public class HomeViewModel extends ViewModel {
 
     public String date;
 
+
     public void setDate(Calendar cal){
         SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
         String month_name = month_date.format(cal.getTime());

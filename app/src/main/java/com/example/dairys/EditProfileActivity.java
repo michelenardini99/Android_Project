@@ -69,9 +69,9 @@ public class EditProfileActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.userDao().updateBirthday(birthdayInserted, username.getText().toString());
-                db.userDao().updateNumber(numberInserted, username.getText().toString());
-                db.userDao().updateImageProfile(selectedImage.toString(), username.getText().toString());
+                if(birthdayInserted != null) db.userDao().updateBirthday(birthdayInserted, username.getText().toString());
+                if(numberInserted != null) db.userDao().updateNumber(numberInserted, username.getText().toString());
+                if(selectedImage != null) db.userDao().updateImageProfile(selectedImage.toString(), username.getText().toString());
                 startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
             }
         });

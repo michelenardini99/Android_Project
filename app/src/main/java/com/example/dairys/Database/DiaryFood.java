@@ -1,15 +1,14 @@
 package com.example.dairys.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
-@Entity(primaryKeys = {"diaryId", "foodId"})
+@Entity(primaryKeys = {"diaryId", "foodId", "category"})
 public class DiaryFood {
     public int diaryId;
     public int foodId;
-
-    @ColumnInfo(name = "category")
-    String category;
+    @NonNull public String category;
 
     public DiaryFood(int diaryId, int foodId, String category) {
         this.diaryId = diaryId;

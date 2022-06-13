@@ -52,6 +52,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +61,8 @@ import java.util.Locale;
 public class HomeFragment extends Fragment {
 
     private int STORAGE_PERMISSION_CODE = 1;
+
+    private List<Integer> humorList;
 
     private ImageView imageHumor;
     private ImageView wallpaperCard;
@@ -126,6 +129,12 @@ public class HomeFragment extends Fragment {
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
             requestStoragePermission();
         }
+
+        humorList = Arrays.asList(R.string.really_happy_db,
+                R.string.happy_db,
+                R.string.so_so_db,
+                R.string.bad_db,
+                R.string.terrible_db);
 
         Calendar cal = Calendar.getInstance();
         setDate(cal);
@@ -240,11 +249,16 @@ public class HomeFragment extends Fragment {
         List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(viewModel.setDateCard());
         if(page.size() != 0){
             int id = page.get(0).getDiaryId();
-            setHumorEmoji(page.get(0).getHumor());
-            setFoodCard(id, "Breakfast", listBreakfast);
-            setFoodCard(id, "Dinner", listDinner);
-            setFoodCard(id, "Lunch", listLunch);
-            setFoodCard(id, "Snack", listSnack);
+            String humor = page.get(0).getHumor();
+            for(Integer h : humorList){
+                if(getResources().getString(h).equals(humor)){
+                    setHumorEmoji(h);
+                }
+            }
+            setFoodCard(id, getResources().getString(R.string.breakfast_db), listBreakfast);
+            setFoodCard(id, getResources().getString(R.string.dinner_db), listDinner);
+            setFoodCard(id, getResources().getString(R.string.lunch_db), listLunch);
+            setFoodCard(id, getResources().getString(R.string.snack_db), listSnack);
             setImageCard(page.get(0).getPhoto());
             setNote(page.get(0).getNote());
             setActivity(id);
@@ -286,25 +300,25 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setHumorEmoji(String humor) {
+    private void setHumorEmoji(int humor) {
         switch (humor){
-            case "Really happy":
+            case R.string.really_happy_db:
                 imageHumor.setImageResource(R.drawable.emotions_really_happy);
                 titlePage.setText(R.string.really_happy_phrase);
                 break;
-            case "Happy":
+            case R.string.happy_db:
                 imageHumor.setImageResource(R.drawable.happy);
                 titlePage.setText(R.string.happy_phrase);
                 break;
-            case "So so":
+            case R.string.so_so_db:
                 imageHumor.setImageResource(R.drawable.so_so);
                 titlePage.setText(R.string.so_so_phrase);
                 break;
-            case "Bad":
+            case R.string.bad_db:
                 imageHumor.setImageResource(R.drawable.bad);
                 titlePage.setText(R.string.bad_phrase);
                 break;
-            case "Terrible":
+            case R.string.terrible_db:
                 imageHumor.setImageResource(R.drawable.terrible);
                 titlePage.setText(R.string.terrible_phrase);
                 break;

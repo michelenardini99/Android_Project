@@ -42,6 +42,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -59,6 +60,8 @@ public class DreamDiaryFragment extends Fragment {
     private ChipGroup filterGroup;
     DreamDiaryViewModel viewModel;
     AppDatabase db;
+
+    private List<Integer> list = Arrays.asList(R.string.date_sort, R.string.like_sort, R.string.favorites);
 
     public DreamDiaryFragment() {
         // Required empty public constructor
@@ -168,11 +171,13 @@ public class DreamDiaryFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                switch (checkCheckedChip()){
-                    case "Date":
+                String chipChecked = checkCheckedChip();
+                int stringChecked = getIntString(chipChecked);
+                switch (stringChecked){
+                    case R.string.date_sort:
                         filterList(viewModel.sortDate());
                         break;
-                    case "Like":
+                    case R.string.like_sort:
                         filterList(db.dreamDiaryDao().orderByLike());
                         break;
                     default:
@@ -203,8 +208,9 @@ public class DreamDiaryFragment extends Fragment {
         List<Integer> ids = filterGroup.getCheckedChipIds();
         for (Integer id:ids){
             Chip chip = filterGroup.findViewById(id);
-            switch (chip.getText().toString()){
-                case "Favorites":
+            int stringChecked = getIntString(chip.getText().toString());
+            switch (stringChecked){
+                case R.string.favorites:
                     viewModel.dreamDiariesNotSelected.addAll(viewModel.filterListFav());
                     break;
                 default:
@@ -254,5 +260,14 @@ public class DreamDiaryFragment extends Fragment {
         chip.isClickable();
 
         group.addView(chip);
+    }
+
+    private int getIntString(String s){
+        for(int t: list){
+            if(getString(t).equals(s)){
+                return t;
+            }
+        }
+        return 0;
     }
 }

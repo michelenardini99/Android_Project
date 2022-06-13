@@ -52,6 +52,9 @@ public class NewPage extends AppCompatActivity {
     Uri selectedImage;
     List<String> activity = new ArrayList<>();
     private int idTemp = 0;
+    private List<Integer> humorList;
+    private List<Integer> actList;
+    private List<Integer> categoryList;
 
     private EditText dataPicker;
     private ExtendedFloatingActionButton camera;
@@ -98,12 +101,23 @@ public class NewPage extends AppCompatActivity {
                 findViewById(R.id.bad),
                 findViewById(R.id.terrible)
         );
+        humorList = Arrays.asList(R.string.really_happy,
+                R.string.happy,
+                R.string.so_so,
+                R.string.bad,
+                R.string.terrible);
+        actList = Arrays.asList(R.string.sport,
+                R.string.immersion,
+                R.string.walk,
+                R.string.cycling,
+                R.string.excursion);
         activityChip = Arrays.asList(findViewById(R.id.walk),
                 findViewById(R.id.sport),
                 findViewById(R.id.excursion),
                 findViewById(R.id.immersion),
                 findViewById(R.id.cycling)
         );
+        categoryList = Arrays.asList(R.string.breakfast, R.string.lunch, R.string.dinner, R.string.snack);
 
         setSupportActionBar(topAppBar);
 
@@ -130,28 +144,28 @@ public class NewPage extends AppCompatActivity {
         breakfast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSelectFood(breakfast.getText().toString());
+                goToSelectFood(getString(R.string.breakfast_db));
             }
         });
 
         lunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSelectFood(lunch.getText().toString());
+                goToSelectFood(getString(R.string.lunch_db));
             }
         });
 
         dinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSelectFood(dinner.getText().toString());
+                goToSelectFood(getString(R.string.dinner_db));
             }
         });
 
         snack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToSelectFood(snack.getText().toString());
+                goToSelectFood(getString(R.string.snack_db));
             }
         });
     }
@@ -160,7 +174,12 @@ public class NewPage extends AppCompatActivity {
     private void editPage() throws ParseException {
         List<DiaryPage> page = getPageToEdit();
         idTemp = page.get(0).getDiaryId();
-        setHumorChipSelected(page.get(0).getHumor());
+        String humor = page.get(0).getHumor();
+        for(int h : humorList){
+            if(humor.equals(getString(h))){
+                setHumorChipSelected(h);
+            }
+        }
         db.diaryActivityDao().getFromPageId(page.get(0).getDiaryId()).forEach(a -> {
             setActivityChipSelected(db.activityDao().getActivityFromId(a.getActivityId()).get(0));
         });
@@ -176,7 +195,7 @@ public class NewPage extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setFoodSelected(int diaryId) {
         Map<String, List<Food>> foods = new HashMap<>();
-        List<String> category = Arrays.asList("Breakfast", "Dinner", "Lunch", "Snack");
+        List<String> category = Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack");
         category.forEach(c -> {
             List<Food> temp = new ArrayList<>();
             if(!db.diaryFoodDao().getFromPageId(diaryId, c).isEmpty()){
@@ -228,21 +247,21 @@ public class NewPage extends AppCompatActivity {
         }
     }
 
-    private void setHumorChipSelected(String humor) {
+    private void setHumorChipSelected(int humor) {
         switch (humor){
-            case "Really happy":
+            case R.string.really_happy:
                 humorGroup.check(R.id.reallyHappy);
                 break;
-            case "Happy":
+            case R.string.happy:
                 humorGroup.check(R.id.happy);
                 break;
-            case "So so":
+            case R.string.so_so:
                 humorGroup.check(R.id.so_so);
                 break;
-            case "Bad":
+            case R.string.bad:
                 humorGroup.check(R.id.bad);
                 break;
-            case "Terrible":
+            case R.string.terrible:
                 humorGroup.check(R.id.terrible);
                 break;
         }
@@ -373,7 +392,11 @@ public class NewPage extends AppCompatActivity {
         List<Integer> ids = humorGroup.getCheckedChipIds();
         for (Integer id:ids){
             Chip chip = humorGroup.findViewById(id);
-            humorSelected = chip.getText().toString();
+            for(int h: humorList){
+                if(getString(h).equals(chip.getText().toString())){
+                    humorSelected = getHumor(h);
+                }
+            }
         }
     }
 
@@ -386,7 +409,47 @@ public class NewPage extends AppCompatActivity {
         activity.clear();
         for (Integer id:ids){
             Chip chip = activityGroup.findViewById(id);
-            activity.add(chip.getText().toString());
+            for(int a: actList){
+                if(getString(a).equals(chip.getText().toString())){
+                    setActivity(a);
+                }
+            }
         }
+    }
+
+    private void setActivity(int act) {
+        switch (act){
+            case R.string.sport:
+                activity.add("Sport");
+                break;
+            case R.string.walk:
+                activity.add("Walk");
+                break;
+            case R.string.excursion:
+                activity.add("Excursion");
+                break;
+            case R.string.cycling:
+                activity.add("Cycling");
+                break;
+            case R.string.immersion:
+                activity.add("Immersion");
+                break;
+        }
+    }
+
+    private String getHumor(int c){
+        switch (c){
+            case R.string.really_happy:
+                return getString(R.string.really_happy_db);
+            case R.string.happy:
+                return getString(R.string.happy_db);
+            case R.string.so_so:
+                return getString(R.string.so_so_db);
+            case R.string.bad:
+                return getString(R.string.bad_db);
+            case R.string.terrible:
+                return getString(R.string.terrible_db);
+        }
+        return "";
     }
 }

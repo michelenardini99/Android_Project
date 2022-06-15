@@ -146,7 +146,7 @@ public class StatisticsViewModel extends ViewModel {
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dateFrom = new Date(sdf.parse(1+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
         Date dateTo = new Date(sdf.parse(cal.getActualMaximum(Calendar.DAY_OF_MONTH)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
-        List<DiaryPage> diaryPageList = db.diaryPageDao().getDiaryPageBetweenDate(dateFrom.getTime(), dateTo.getTime());
+        List<DiaryPage> diaryPageList = db.diaryPageDao().getDiaryPageBetweenDate(dateFrom.getTime(), dateTo.getTime(), db.userDao().userLogged().get(0).getId());
         return diaryPageList;
     }
 

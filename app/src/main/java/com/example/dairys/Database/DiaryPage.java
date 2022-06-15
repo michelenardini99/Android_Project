@@ -13,12 +13,24 @@ public class DiaryPage {
     @PrimaryKey
     private int diaryId;
 
-    public DiaryPage(int diaryId, Date date, String note, String photo, String humor) {
+    @ColumnInfo(name = "userId")
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public DiaryPage(int diaryId, int userId, Date date, String note, String photo, String humor) {
         this.diaryId = diaryId;
         this.date = date;
         this.note = note;
         this.photo = photo;
         this.humor = humor;
+        this.userId = userId;
     }
 
     public int getDiaryId() {

@@ -73,6 +73,10 @@ public class TargetsActivity extends AppCompatActivity {
         targetResult.setText(progressBar.getProgress() + "/" + viewModel.maxTarget);
         targetProgress.setText("Remaining " + viewModel.target + " activities: " + (viewModel.maxTarget - progressBar.getProgress()));
         progressBarYear.setMax(1);
+        if(progressBar.getProgress() == viewModel.maxTarget){
+            progressBarYear.setProgress(progressBarYear.getMax());
+            targetComplete.setText("1/1");
+        }
     }
 
     public class ProgressBarAnimation extends Animation {

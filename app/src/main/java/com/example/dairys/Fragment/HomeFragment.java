@@ -246,7 +246,7 @@ public class HomeFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setPageCard() throws ParseException {
-        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(viewModel.setDateCard());
+        List<DiaryPage> page = db.diaryPageDao().getDiaryPageForDate(viewModel.setDateCard(), db.userDao().userLogged().get(0).getId());
         if(page.size() != 0){
             int id = page.get(0).getDiaryId();
             String humor = page.get(0).getHumor();

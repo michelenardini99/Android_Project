@@ -277,7 +277,7 @@ public class NewPage extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date date = new java.util.Date(sdf.parse(dateToSend).getTime());
         long l = date.getTime();
-        return db.diaryPageDao().getDiaryPageForDate(l);
+        return db.diaryPageDao().getDiaryPageForDate(l, db.userDao().userLogged().get(0).getId());
     }
 
 
@@ -311,7 +311,7 @@ public class NewPage extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     db.diaryPageDao().insertAll(
-                            new DiaryPage(diaryId,
+                            new DiaryPage(diaryId, db.userDao().userLogged().get(0).getId(),
                                     date,
                                     noteEditText.getText().toString(),
                                     selectedImage == null ? null : selectedImage.toString(),

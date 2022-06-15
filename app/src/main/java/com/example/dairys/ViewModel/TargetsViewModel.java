@@ -46,7 +46,7 @@ public class TargetsViewModel extends ViewModel {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dateFrom = new Date(sdf.parse(1+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
         Date dateTo = new Date(sdf.parse(cal.getActualMaximum(Calendar.DAY_OF_MONTH)+"/"+(cal.get(Calendar.MONTH)+1)+"/"+cal.get(Calendar.YEAR)).getTime());
-        list = db.diaryPageDao().getDiaryPageBetweenDate(dateFrom.getTime(), dateTo.getTime());
+        list = db.diaryPageDao().getDiaryPageBetweenDate(dateFrom.getTime(), dateTo.getTime(), db.userDao().userLogged().get(0).getId());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
